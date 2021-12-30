@@ -12,13 +12,13 @@ Skill::~Skill(){
 
 
 int Skill::getId() const{
-    return id;
+    return this->id;
 }
 int Skill::getRequiredPoints() const{
-    return required_points;
+    return this->required_points;
 }
 std::string Skill::getName() const{
-    return name;
+    return this->name;
 }
 
 
@@ -51,14 +51,14 @@ bool Skill::operator!=(const Skill& rvalue){
 }
 
 void Skill::operator++(int){
-    id++;
+    this->id++;
 }
 
 void Skill::operator+=(int points){
     if(points < 0){
         throw mtm::NegativePoints();
     }
-    id+=points;
+    this->id+=points;
 }
 
 int Skill::operator+(int points){
