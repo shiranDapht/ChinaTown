@@ -10,7 +10,7 @@ namespace mtm{
  */
 class Exception : std::exception{};
 
-
+class NotEmplemented : Exception{};
 class NegativePoints : Exception{};
 class SkillAlreadyLearned : Exception{};
 class CanNotLearnSkill : Exception{};
