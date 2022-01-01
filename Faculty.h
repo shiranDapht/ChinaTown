@@ -2,8 +2,7 @@
 #define _FACULTY_H_
 #include "Skill.h"
 #include <functional>
-typedef int Employee;// Very temporary typedef!!!!
-
+#include "Employee.h"
 
 namespace mtm{
 
@@ -12,10 +11,8 @@ class Faculty
     
 private:
 
-
-
     int id_t;
-    Skill skill;
+    Skill skill_t;
     int added_pointes_t;
     std::function<bool (Employee)> isAccepted_t;
 public:
@@ -26,7 +23,7 @@ public:
     int getAddedPoints() const;
     int getId() const;
     Skill getSkill() const;
-    void teach(Employee& emp) const;
+    void teach(Employee& employee) const;
 };
 
 
