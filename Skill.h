@@ -6,9 +6,9 @@ namespace mtm{
 class Skill
 {
 private:
-    int id;
-    int required_points;
-    std::string name;
+    int id_t;
+    int required_points_t;
+    std::string name_t;
 public:
     Skill(int id, std::string name, int required_points);
     Skill(const Skill& skill);
