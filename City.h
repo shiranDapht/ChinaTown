@@ -44,7 +44,8 @@ public:
     void addFculty(const int id,const std::function<bool (Employee)> isAccepted, const Skill skill, const int added_pointes);
     void createWorkplace();
     void teachAtFaculty(const int employee_id, const int faculty_id);
-    //void hireEmployeeAtWorkplace();
+    typedef bool (*condition)(Employee employee);
+    void hireEmployeeAtWorkplace(const condition cond, const int employee_id,const int manager_id, const int workplace_id);
     void hireManagerAtWorkplace(const int manager_id, const int workplace_id);
     void fireEmployeeAtWorkplace(const int employee_id,const int manager_id, const int workplace_id);
     void fireManagerAtWorkplace(const int manager_id, const int workplace_id);

@@ -18,7 +18,7 @@ namespace mtm{
 
     public:
         Employee();
-        Employee(int id, string first_name, string last_name, int year) :
+        Employee(const int id, const string first_name, const string last_name, const int year) :
             Citizen(id, first_name, last_name, year), salary_t(0), score_t(0) {
                 skills_t = std::unique_ptr<std::set<Skill>>(new std::set<Skill>());
             };

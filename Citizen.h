@@ -17,7 +17,7 @@ namespace mtm{
 
     public:
         Citizen() = default;
-        Citizen(int id, string first_name, string last_name, int year): id_t(id), 
+        Citizen(const int id, const string first_name, const string last_name, const int year): id_t(id), 
                     first_name_t(first_name), last_name_t(last_name), year_of_birth_t(year) {};
         ~Citizen() = default; 
         Citizen(const Citizen& citizen) {
