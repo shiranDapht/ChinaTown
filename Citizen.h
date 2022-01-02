@@ -1,7 +1,7 @@
 #ifndef _CITIZEN_H_
 #define _CITIZEN_H_
 
-#include <cstring>
+#include <string>
 #include <iostream>
 typedef std::string string;
 typedef std::ostream ostream;
