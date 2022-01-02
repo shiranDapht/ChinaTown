@@ -1,6 +1,8 @@
 #ifndef _EMPLOYEE_H_ 
 #define _EMPLOYEE_H_
 
+#include <memory>
+
 #include "Citizen.h"
 #include "Skill.h"
 #include "exceptions.h"
@@ -12,13 +14,14 @@ namespace mtm{
     private:
         int salary_t;
         int score_t;
-        std::set<Skill> skills_t;
+        std::unique_ptr<std::set<Skill>> skills_t;
 
     public:
         Employee();
-        Employee(int id, string first_name, string last_name, int year, int salary, int score,
-            std::set<Skill> skills) : Citizen(id, first_name, last_name, year), salary_t(salary),
-            score_t(score), skills_t(skills) {};
+        Employee(int id, string first_name, string last_name, int year) :
+            Citizen(id, first_name, last_name, year), salary_t(0), score_t(0) {
+                skills_t = std::unique_ptr<std::set<Skill>>(new std::set<Skill>());
+            };
         ~Employee();
         Employee(const Employee& employee);
 
