@@ -4,7 +4,10 @@
 #include "Employee.h"
 
 namespace mtm{
-
+class Condition{
+    public:
+    virtual bool operator()(Employee* employee) = 0;
+};
 
 
 template<class IsAcceptedFunctor>
