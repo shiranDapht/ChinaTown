@@ -1,11 +1,16 @@
 #ifndef _FACULTY_H_
 #define _FACULTY_H_
 #include "Skill.h"
-#include <functional>
 #include "Employee.h"
 
 namespace mtm{
+class Condition{
+    public:
+    virtual bool operator()(Employee* employee) = 0;
+};
 
+
+template<class IsAcceptedFunctor>
 class Faculty
 {
     
@@ -14,9 +19,9 @@ private:
     int id_t;
     Skill skill_t;
     int added_pointes_t;
-    std::function<bool (Employee)> isAccepted_t;
+    IsAcceptedFunctor isAccepted_t;
 public:
-    Faculty(int id, std::function<bool (Employee)> isAccepted, Skill skill, int added_pointes);
+    Faculty(int id, IsAcceptedFunctor isAccepted, Skill skill, int added_pointes);
     Faculty(const Faculty& fac);
     ~Faculty();
 
