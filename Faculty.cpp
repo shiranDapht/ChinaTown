@@ -4,27 +4,35 @@
 namespace mtm{
 using namespace mtm;
 
-Faculty::Faculty(int id, std::function<bool (Employee)> isAccepted, Skill skill, int added_pointes): id_t(id), isAccepted_t(isAccepted), skill_t(skill), added_pointes_t(added_pointes){
+template<class IsAcceptedFunctor>
+Faculty<IsAcceptedFunctor>::Faculty(int id, IsAcceptedFunctor isAccepted, Skill skill, int added_pointes): id_t(id), isAccepted_t(isAccepted), skill_t(skill), added_pointes_t(added_pointes){
     isAccepted_t = isAccepted;
 }
-Faculty::Faculty(const Faculty& faculty) : id_t(faculty.getId()), isAccepted_t(faculty.isAccepted_t), skill_t(faculty.getSkill()), added_pointes_t(faculty.getAddedPoints()){
+
+template<class IsAcceptedFunctor>
+Faculty<IsAcceptedFunctor>::Faculty(const Faculty& faculty) : id_t(faculty.getId()), isAccepted_t(faculty.isAccepted_t), skill_t(faculty.getSkill()), added_pointes_t(faculty.getAddedPoints()){
 }
-Faculty::~Faculty(){
+template<class IsAcceptedFunctor>
+Faculty<IsAcceptedFunctor>::~Faculty(){
 }
 
-int Faculty::getAddedPoints() const{
+template<class IsAcceptedFunctor>
+int Faculty<IsAcceptedFunctor>::getAddedPoints() const{
     return added_pointes_t;
 }
 
-int Faculty::getId() const{
+template<class IsAcceptedFunctor>
+int Faculty<IsAcceptedFunctor>::getId() const{
     return id_t;
 }
 
-Skill Faculty::getSkill() const{
+template<class IsAcceptedFunctor>
+Skill Faculty<IsAcceptedFunctor>::getSkill() const{
     return skill_t;
 }
 
-void Faculty::teach(Employee& employee) const{
+template<class IsAcceptedFunctor>
+void Faculty<IsAcceptedFunctor>::teach(Employee& employee) const{
     if(isAccepted_t(employee)){
         employee.learnSkill(getSkill());
         employee.setScore(getAddedPoints());
