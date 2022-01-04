@@ -14,16 +14,18 @@ namespace mtm{
     private:
         int salary_t;
         int score_t;
-        std::unique_ptr<std::set<Skill>> skills_t;
+        std::set<Skill> skills_t;
 
     public:
         Employee();
         Employee(const int id, const string first_name, const string last_name, const int year) :
             Citizen(id, first_name, last_name, year), salary_t(0), score_t(0) {
-                skills_t = std::unique_ptr<std::set<Skill>>(new std::set<Skill>());
+                std::set<Skill> skills_t;
             };
         ~Employee();
-        Employee(const Employee& employee);
+        Employee(const Employee& employee){
+
+        };
 
         int getSalary() const;
         int getScore() const;

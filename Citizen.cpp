@@ -20,11 +20,26 @@ namespace mtm{
     };
 
     bool Citizen::operator<(const Citizen& citizen){
-        return (this)
+        return this->id_t < citizen.id_t ? true : false;
     };
-    bool Citizen::operator>(const Citizen& citizen){};
-    bool Citizen::operator==(const Citizen& citizen){};
-    bool Citizen::operator<=(const Citizen& citizen){};
-    bool Citizen::operator>=(const Citizen& citizen){};
-    bool Citizen::operator!=(const Citizen& citizen){};
+
+    bool Citizen::operator>(const Citizen& citizen){
+        return this->id_t > citizen.id_t ? true : false;
+    };
+
+    bool Citizen::operator==(const Citizen& citizen){
+        return this->id_t == citizen.id_t ? true : false;
+    };
+
+    bool Citizen::operator<=(const Citizen& citizen){
+        return this->id_t <= citizen.id_t ? true : false;
+    };
+
+    bool Citizen::operator>=(const Citizen& citizen){
+        return this->id_t >= citizen.id_t ? true : false;
+    };
+
+    bool Citizen::operator!=(const Citizen& citizen){
+        return this->id_t != citizen.id_t ? true : false;
+    };
 }
