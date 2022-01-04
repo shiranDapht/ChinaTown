@@ -30,7 +30,7 @@ void Workplace::hireEmployee(IsAcceptedToWorkFunctor isAccepted, Employee* emplo
     if(isAccepted(*employee)){
         throw EmployeeNotSelected();
     }
-    for(Manager manager : managers_set_t){
+    for(const Manager& manager : managers_set_t){
         if(manager.getId() == manager_id){
             manager.addEmployee(*employee);
         }

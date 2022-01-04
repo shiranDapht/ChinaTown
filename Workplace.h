@@ -24,7 +24,7 @@ public:
     std::string getName() const;
     int getID() const;
     template<class IsAcceptedToWorkFunctor> void hireEmployee(IsAcceptedToWorkFunctor isAccepted, Employee* employee, int manager_id);
-    void hireManager();
+    void hireManager(Manager* manager);
     void fireEmployee(int employee_id, int manager_id);
     void fireManager(int manager_id);
     friend ostream& operator<<(ostream& os, Workplace& workplace);
