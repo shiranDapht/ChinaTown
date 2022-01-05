@@ -3,21 +3,21 @@
 
 #include <string>
 #include <iostream>
-typedef std::string string;
-typedef std::ostream ostream;
 
+using std::string;
+using std::ostream;
 namespace mtm{
     class Citizen
     {
     private:
         int id_t;
-        string first_name_t;
-        string last_name_t;
+        std::string first_name_t;
+        std::string last_name_t;
         int year_of_birth_t;
 
     public:
         Citizen() = default;
-        Citizen(const int id, const string first_name, const string last_name, const int year): id_t(id), 
+        Citizen(const int id, const std::string first_name, const std::string last_name, const int year): id_t(id), 
                     first_name_t(first_name), last_name_t(last_name), year_of_birth_t(year) {};
         ~Citizen() = default; 
         Citizen(const Citizen& citizen) {
@@ -28,8 +28,8 @@ namespace mtm{
         }
 
         int getId() const;
-        string getFirstName() const;
-        string getLastName() const;
+        std::string getFirstName() const;
+        std::string getLastName() const;
         int getBirthYear() const;
 
         //Operators for Citizen
@@ -43,10 +43,10 @@ namespace mtm{
 
         //Print functions
 
-        virtual ostream& printShort(const ostream& os) = 0 ;
-        virtual ostream& printLong(const ostream& os) = 0;
+        virtual ostream& printShort(ostream& os) = 0 ;
+        virtual ostream& printLong(ostream& os) = 0;
     
-        virtual Citizen& clone() = 0;
+        virtual Citizen* clone() = 0;
     };
     
 }
