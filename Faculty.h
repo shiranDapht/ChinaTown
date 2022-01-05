@@ -10,7 +10,7 @@ class Condition{
 };
 
 
-template<class IsAcceptedFunctor>
+template<class T>
 class Faculty
 {
     
@@ -19,9 +19,9 @@ private:
     int id_t;
     Skill skill_t;
     int added_pointes_t;
-    IsAcceptedFunctor isAccepted_t;
+    T* isAccepted_t;
 public:
-    Faculty(int id, IsAcceptedFunctor isAccepted, Skill skill, int added_pointes);
+    Faculty(int id, T* isAccepted, Skill skill, int added_pointes);
     Faculty(const Faculty& fac);
     ~Faculty();
 
