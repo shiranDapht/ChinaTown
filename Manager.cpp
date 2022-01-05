@@ -1,4 +1,6 @@
 #include "Manager.h"
+#include "Employee.h"
+#include "exceptions.h"
 #include <string>
 
 namespace mtm{
@@ -18,16 +20,36 @@ void Manager::setIsHired(const bool is_hired){
     is_hired_t = is_hired;
 }
 
-void Manager::addEmployee(const Employee& employee) const{
-    
+void Manager::addEmployee(const Employee* employee){
+    if(employees_t.find(*employee) == employees_t.end()){
+        employees_t.insert(*employee);
+    }
+    throw EmployeeAlreadyExists();
 }
 
-void Manager::removeEmployee(const int employee_id);
-void Manager::setSalary(const int add_salary);
+void Manager::removeEmployee(const int employee_id){
+    for(const Employee& employee : employees_t){
+        if(employee.getId() == employee_id){
+            employees_t.erase(employee);
+        }
+    }
+    throw EmployeeIsNotHired();
+}
 
-stream& Manager::printShort(const ostream& os);
-ostream& Manager::printLong(const ostream& os);
+void Manager::setSalary(const int add_salary){
+    salary_t = getSalary() + add_salary;
+}
 
-Manager* Manager::clone();
+ostream& Manager::printShort(ostream& os){
+
+}
+
+ostream& Manager::printLong(ostream& os){
+
+}
+
+Manager* Manager::clone(){
+    return new Manager(*this);
+}
 
 }
