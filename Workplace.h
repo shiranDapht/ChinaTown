@@ -16,7 +16,7 @@ private:
     std::set<Manager> managers_set_t;
 public:
     Workplace(int id, std::string name, double workers_salary, double managers_salary);
-    Workplace(Workplace& workplace) = delete;
+    Workplace(const Workplace& workplace) = default;
     ~Workplace() = default;
 
     double getManagersSalary() const;
