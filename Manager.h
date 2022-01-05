@@ -25,12 +25,12 @@ public:
 
     int getSalary() const;
 
-    void addEmployee(const Employee& employee) const;
+    void addEmployee(const Employee* employee);
     void removeEmployee(const int employee_id);
     void setSalary(const int add_salary);
 
-    virtual ostream& printShort(const ostream& os) override;
-    virtual ostream& printLong(const ostream& os) override;
+    virtual ostream& printShort(ostream& os) override;
+    virtual ostream& printLong(ostream& os) override;
 
     virtual Manager* clone() override;
 
