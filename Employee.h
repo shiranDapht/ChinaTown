@@ -17,6 +17,7 @@ namespace mtm{
         std::set<Skill> skills_t;
 
     public:
+
         Employee(const int id, const std::string first_name, const std::string last_name, const int year);
         ~Employee() = default;
         Employee(const Employee& employee) = default;
@@ -30,12 +31,12 @@ namespace mtm{
         void setSalary(const int add_salary);
         void setScore(const int add_score);
 
-        virtual ostream& printShort(ostream& os) override;
-        virtual ostream& printLong(ostream& os) override;
+        virtual ostream& printShort(ostream& os) const override;
+        virtual ostream& printLong(ostream& os) const override;
     
         virtual Employee* clone() override;
 
-        ostream& printSkills(ostream& os);
+        ostream& printSkills(ostream& os) const;
     };
 }
 

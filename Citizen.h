@@ -43,8 +43,8 @@ namespace mtm{
 
         //Print functions
 
-        virtual ostream& printShort(ostream& os) = 0 ;
-        virtual ostream& printLong(ostream& os) = 0;
+        virtual ostream& printShort(ostream& os) const = 0 ;
+        virtual ostream& printLong(ostream& os) const = 0;
     
         virtual Citizen* clone() = 0;
     };

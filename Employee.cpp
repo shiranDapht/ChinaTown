@@ -57,13 +57,13 @@ void Employee::setScore(const int add_score){
     score_t = getScore() + add_score;
 }
 
-ostream& Employee::printShort(ostream& os){
+ostream& Employee::printShort(ostream& os) const{
     os << getFirstName() + std::string(" ") + getLastName() + std::string("\n") + std::string("Salary: ") 
         + std::to_string(getSalary()) + std::string("Score: ") + std::to_string(getScore()) <<std::endl;
     return os;
 }
 
-ostream& Employee::printLong(ostream& os){
+ostream& Employee::printLong(ostream& os) const{
     os << getFirstName() + std::string(" ") + getLastName() + std::string("\n")
         + std::string("id - ") + std::to_string(getId()) + std::string(" birth_year - ") + std::to_string(getBirthYear())
         + std::string("\n") + std::string("Salary: ") + std::to_string(getSalary()) + std::string(" Score: ") 
@@ -72,7 +72,7 @@ ostream& Employee::printLong(ostream& os){
     return os;
 }
 
-ostream& Employee::printSkills(ostream& os){
+ostream& Employee::printSkills(ostream& os) const{
     for(const Skill& skill : skills_t){
         os << skill.getName() << std::endl;
     }
