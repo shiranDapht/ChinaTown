@@ -16,6 +16,8 @@ class Manager : public Citizen
 private:
     int salary_t;
     std::set<Employee> employees_t;
+    bool is_hired_t;
+
 public:
     Manager(int id, std::string first_name, std::string last_name, int year, int salary);
     Manager(const Manager& manager) = default;
@@ -27,10 +29,13 @@ public:
     void removeEmployee(const int employee_id);
     void setSalary(const int add_salary);
 
-    virtual ostream& printShort(const ostream& os);
-    virtual ostream& printLong(const ostream& os);
+    virtual ostream& printShort(const ostream& os) override;
+    virtual ostream& printLong(const ostream& os) override;
 
-    virtual Manager* clone();
+    virtual Manager* clone() override;
+
+    bool getIsHired() const;
+    void setIsHired(const bool is_hired);
 };
 
 }
