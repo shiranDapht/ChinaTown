@@ -40,12 +40,26 @@ void Manager::setSalary(const int add_salary){
     salary_t = getSalary() + add_salary;
 }
 
-ostream& Manager::printShort(ostream& os){
-
+ostream& Manager::printShort(ostream& os) const{
+    os << getFirstName() + std::string(" ") + getLastName() + std::string("\n") + std::string("Salary: ") 
+        + std::to_string(getSalary()) << std::endl;
+    return os;
 }
 
-ostream& Manager::printLong(ostream& os){
+ostream& Manager::printEmployees(ostream& os) const{
+    for(const Employee& employee : employees_t){
+        employee.printShort(os);
+    }
+    return os;
+}
 
+ostream& Manager::printLong(ostream& os) const{
+    os << getFirstName() + std::string(" ") + getLastName() + std::string("\n") +
+        std::string("id - ") + std::to_string(getId()) + std::string("birth_year - ") + std::to_string(getBirthYear()) 
+        + std::string("\n") + std::string("Salary: ") + std::to_string(getSalary()) + std::string("\n") +
+        std::string("Employees:") + std::string("\n") << std::endl;
+    printEmployees(os);
+    return os;
 }
 
 Manager* Manager::clone(){
