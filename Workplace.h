@@ -17,7 +17,7 @@ private:
 public:
     Workplace(int id, std::string name, double workers_salary, double managers_salary);
     Workplace(Workplace& workplace) = delete;
-    ~Workplace();
+    ~Workplace() = default;
 
     double getManagersSalary() const;
     double  getWorkersSalary() const;
