@@ -19,7 +19,7 @@ private:
     bool is_hired_t;
 
 public:
-    Manager(int id, std::string first_name, std::string last_name, int year, int salary);
+    Manager(int id, std::string first_name, std::string last_name, int year);
     Manager(const Manager& manager) = default;
     ~Manager() = default;
 

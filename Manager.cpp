@@ -5,7 +5,7 @@
 
 namespace mtm{
 
-Manager::Manager(int id, std::string first_name, std::string last_name, int year, int salary):
+Manager::Manager(int id, std::string first_name, std::string last_name, int year):
     Citizen(id, first_name, last_name, year), salary_t(0), employees_t(std::set<Employee>()), is_hired_t(false) {}
 
 int Manager::getSalary() const{
