@@ -6,11 +6,9 @@
 namespace mtm{
 
 Manager::Manager(int id, std::string first_name, std::string last_name, int year):
-    Citizen(id, first_name, last_name, year), salary_t(0), employees_t(std::set<Employee>()), is_hired_t(false) {}
+    CitizenPlus(id, first_name, last_name, year), employees_t(std::set<Employee>()), is_hired_t(false) {}
 
-int Manager::getSalary() const{
-    return salary_t;
-}
+
 
 bool Manager::getIsHired() const{
     return is_hired_t;
@@ -36,9 +34,6 @@ void Manager::removeEmployee(const int employee_id){
     throw EmployeeIsNotHired();
 }
 
-void Manager::setSalary(const int add_salary){
-    salary_t = getSalary() + add_salary;
-}
 
 ostream& Manager::printShort(ostream& os) const{
     os << getFirstName() + std::string(" ") + getLastName() + std::string("\n") + std::string("Salary: ") 
@@ -64,6 +59,15 @@ ostream& Manager::printLong(ostream& os) const{
 
 Manager* Manager::clone(){
     return new Manager(*this);
+}
+
+bool Manager::isEmployeeHere(int id) const{
+    for(const Employee& employee : employees_t){
+        if(employee.getId() == id){
+            return true;
+        }
+    }
+    return false;
 }
 
 }

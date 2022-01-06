@@ -21,7 +21,7 @@ std::string Workplace::getName() const{
     return name_t;
 }
 
-int Workplace::getID() const{
+int Workplace::getId() const{
     return id_t;
 }
 
@@ -42,7 +42,7 @@ void Workplace::hireEmployee(IsAcceptedToWorkFunctor isAccepted, Employee* emplo
     throw ManagerIsNotHired();
 }
 
-void Workplace::hireManager(Manager* manager){
+void Workplace::hireManager(const Manager* manager){
     if(managers_set_t.find(*manager) != managers_set_t.end()){
         throw ManagerAlreadyHired();
     }
@@ -81,4 +81,15 @@ ostream& operator<<(ostream& os, Workplace& workplace){
     }
     return os;
 }
+
+bool Workplace::isEmployeeWorkingHere(int id) const{
+    for(const Manager& manager : managers_set_t){
+        if(manager.isEmployeeHere(id)){
+            return true;
+        }
+    }
+    return false;
+}
+
+
 }

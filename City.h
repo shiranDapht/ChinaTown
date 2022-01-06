@@ -37,9 +37,9 @@ public:
     void hireManagerAtWorkplace(const int manager_id, const int workplace_id);
     void fireEmployeeAtWorkplace(const int employee_id,const int manager_id, const int workplace_id);
     void fireManagerAtWorkplace(const int manager_id, const int workplace_id);
-    int getAllAboveSalary(const ostream& os, const int salary_bar);
+    int getAllAboveSalary(ostream& os, const int salary_bar);
     bool isWorkingInTheSameWorkplace(const int employee_id1, const int employee_id2);
-    void printAllEmployeesWithSkill(const ostream& os, const Skill skill);
+    void printAllEmployeesWithSkill(ostream& os, const Skill skill);
 };
 
 }

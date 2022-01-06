@@ -6,14 +6,8 @@
 namespace mtm{
 
 Employee::Employee(const int id, const std::string first_name, const std::string last_name, const int year) :
-            Citizen(id, first_name, last_name, year), salary_t(0), score_t(0) {
+            CitizenPlus(id, first_name, last_name, year), score_t(0) {
                 skills_t = std::set<Skill>();
-}
-
-
-
-int Employee::getSalary() const{
-    return salary_t;
 }
 
 int Employee::getScore() const{
@@ -49,9 +43,6 @@ bool Employee::hasSkill(const int skill_id) const{
     return false;
 }
 
-void Employee::setSalary(const int add_salary){
-    salary_t = getSalary() + add_salary;
-}
 
 void Employee::setScore(const int add_score){
     score_t = getScore() + add_score;
