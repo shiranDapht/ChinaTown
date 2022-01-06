@@ -9,10 +9,9 @@
 
 
 namespace mtm{
-    class Employee : public Citizen
+    class Employee : public CitizenPlus
     {
     private:
-        int salary_t;
         int score_t;
         std::set<Skill> skills_t;
 
@@ -22,13 +21,11 @@ namespace mtm{
         ~Employee() = default;
         Employee(const Employee& employee) = default;
 
-        int getSalary() const;
-        int getScore() const;
 
+        int getScore() const;
         void learnSkill(const Skill skill);
         void forgetSkill(const int skill_id);
         bool hasSkill(const int skill_id) const;
-        void setSalary(const int add_salary);
         void setScore(const int add_score);
 
         virtual ostream& printShort(ostream& os) const override;

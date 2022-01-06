@@ -27,7 +27,7 @@ namespace mtm{
             year_of_birth_t = citizen.year_of_birth_t;
         }
 
-        int getId() const;
+        virtual int getId() const;
         std::string getFirstName() const;
         std::string getLastName() const;
         int getBirthYear() const;
@@ -49,6 +49,20 @@ namespace mtm{
         virtual Citizen* clone() = 0;
     };
     
+
+    class CitizenPlus : public Citizen{
+        protected:
+        int salary_t;
+        public:
+        CitizenPlus(const int id, const std::string first_name, const std::string last_name, const int year):Citizen(id, first_name, last_name, year), salary_t(0){
+        };
+        CitizenPlus(const CitizenPlus& citizen_plus) = default;
+        ~CitizenPlus() = default;
+        int getSalary() const;
+        void setSalary(const int add_salary);
+    };
+
+
 }
 
 #endif

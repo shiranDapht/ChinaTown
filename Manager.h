@@ -11,10 +11,9 @@ using std::string;
 namespace mtm{
     
 
-class Manager : public Citizen
+class Manager : public CitizenPlus
 {
 private:
-    int salary_t;
     std::set<Employee> employees_t;
     bool is_hired_t;
 
@@ -23,17 +22,15 @@ public:
     Manager(const Manager& manager) = default;
     ~Manager() = default;
 
-    int getSalary() const;
-
     void addEmployee(const Employee* employee);
     void removeEmployee(const int employee_id);
-    void setSalary(const int add_salary);
 
     virtual ostream& printShort(ostream& os) const override;
     virtual ostream& printLong(ostream& os) const override;
 
     virtual Manager* clone() override;
 
+    bool isEmployeeHere(int id) const;
     bool getIsHired() const;
     void setIsHired(const bool is_hired);
     ostream& printEmployees(ostream& os) const;

@@ -42,4 +42,12 @@ namespace mtm{
     bool Citizen::operator!=(const Citizen& citizen){
         return id_t != citizen.id_t;
     }
+
+    int CitizenPlus::getSalary() const{
+        return salary_t;
+    }
+
+    void CitizenPlus::setSalary(int salary){
+        salary_t = salary + salary_t < 0 ? 0 : salary + salary_t;
+    }
 }
