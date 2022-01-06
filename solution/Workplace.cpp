@@ -91,5 +91,9 @@ bool Workplace::isEmployeeWorkingHere(int id) const{
     return false;
 }
 
+bool Workplace::operator<(const Workplace& workplace) const{
+    return getId() < workplace.getId();
+}
+
 
 }

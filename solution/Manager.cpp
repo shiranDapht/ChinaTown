@@ -57,7 +57,7 @@ ostream& Manager::printLong(ostream& os) const{
     return os;
 }
 
-Manager* Manager::clone(){
+Manager* Manager::clone() const{
     return new Manager(*this);
 }
 

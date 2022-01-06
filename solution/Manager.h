@@ -28,7 +28,7 @@ public:
     virtual ostream& printShort(ostream& os) const override;
     virtual ostream& printLong(ostream& os) const override;
 
-    virtual Manager* clone() override;
+    virtual Manager* clone() const override;
 
     bool isEmployeeHere(int id) const;
     bool getIsHired() const;

@@ -31,7 +31,7 @@ namespace mtm{
         virtual ostream& printShort(ostream& os) const override;
         virtual ostream& printLong(ostream& os) const override;
     
-        virtual Employee* clone() override;
+        virtual Employee* clone() const override;
 
         ostream& printSkills(ostream& os) const;
     };

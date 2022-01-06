@@ -70,7 +70,7 @@ ostream& Employee::printSkills(ostream& os) const{
     return os;
 }
 
-Employee* Employee::clone(){
+Employee* Employee::clone() const{
     return new Employee(*this);
 }
 

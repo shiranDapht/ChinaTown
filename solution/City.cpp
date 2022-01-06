@@ -5,6 +5,7 @@
 #include "Workplace.h"
 #include "exceptions.h"
 
+#include <memory>
 #include <string>
 
 namespace mtm{
@@ -144,15 +145,26 @@ void City::fireManagerAtWorkplace(const int manager_id, const int workplace_id){
     throw ManagerDoesNotExist();
 }
 
+class Comparator{
+    public:
+    bool operator()(const std::unique_ptr<CitizenPlus>& ptr1, const std::unique_ptr<CitizenPlus>& ptr2){
+    return *ptr1 < *ptr2;
+    }
+};
+
 
 int City::getAllAboveSalary(ostream& os, const int salary_bar){
     int count = 0;
-    std::set<CitizenPlus> set_union = std::set<CitizenPlus>();
-    set_union.insert(employees_t.begin(), employees_t.end());
-    set_union.insert(managers_t.begin(), managers_t.end());
-    for(const CitizenPlus& citizen : set_union){
-        if(citizen.getSalary() >= salary_bar){
-            citizen.printShort(os);
+    std::set<std::unique_ptr<CitizenPlus>, Comparator> set_union = std::set<std::unique_ptr<CitizenPlus> , Comparator>();
+    for(const Employee& employee : employees_t){
+        set_union.insert(std::unique_ptr<CitizenPlus>(employee.clone()));
+    }
+    for(const Manager& manager : managers_t){
+        set_union.insert(std::unique_ptr<CitizenPlus>(manager.clone()));
+    }
+    for(const std::unique_ptr<CitizenPlus>& citizen : set_union){
+        if((*citizen).getSalary() >= salary_bar){
+            (*citizen).printShort(os);
             count++;
         }
     }

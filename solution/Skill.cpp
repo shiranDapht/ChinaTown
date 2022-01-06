@@ -26,27 +26,27 @@ std::ostream& operator<<(std::ostream& os, const Skill& skill){
     return os << skill.getName();
 }
 
-bool Skill::operator>(const Skill& rvalue){
+bool Skill::operator>(const Skill& rvalue) const{
     return id_t > rvalue.getId();
 }
 
-bool Skill::operator<(const Skill& rvalue){
+bool Skill::operator<(const Skill& rvalue) const{
     return id_t < rvalue.getId();
 }
 
-bool Skill::operator>=(const Skill& rvalue){
+bool Skill::operator>=(const Skill& rvalue) const{
     return id_t >= rvalue.getId();
 }
 
-bool Skill::operator<=(const Skill& rvalue){
+bool Skill::operator<=(const Skill& rvalue) const{
     return id_t <= rvalue.getId();
 }
 
-bool Skill::operator==(const Skill& rvalue){
+bool Skill::operator==(const Skill& rvalue) const{
     return id_t == rvalue.getId();
 }
 
-bool Skill::operator!=(const Skill& rvalue){
+bool Skill::operator!=(const Skill& rvalue) const{
     return id_t != rvalue.getId();
 }
 
@@ -61,7 +61,7 @@ void Skill::operator+=(int points){
     id_t+=points;
 }
 
-int Skill::operator+(int points){
+int Skill::operator+(int points) const{
     if(points < 0){
         throw NegativePoints();
     }

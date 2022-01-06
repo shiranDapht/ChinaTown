@@ -34,19 +34,19 @@ namespace mtm{
 
         //Operators for Citizen
 
-        bool operator<(const Citizen& citizen);
-        bool operator>(const Citizen& citizen);
-        bool operator==(const Citizen& citizen);
-        bool operator<=(const Citizen& citizen);
-        bool operator>=(const Citizen& citizen);
-        bool operator!=(const Citizen& citizen);
+        bool operator<(const Citizen& citizen) const;
+        bool operator>(const Citizen& citizen) const;
+        bool operator==(const Citizen& citizen) const;
+        bool operator<=(const Citizen& citizen) const;
+        bool operator>=(const Citizen& citizen) const;
+        bool operator!=(const Citizen& citizen) const;
 
         //Print functions
 
         virtual ostream& printShort(ostream& os) const = 0 ;
         virtual ostream& printLong(ostream& os) const = 0;
     
-        virtual Citizen* clone() = 0;
+        virtual Citizen* clone() const = 0;
     };
     
 

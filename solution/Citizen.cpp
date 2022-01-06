@@ -19,28 +19,28 @@ namespace mtm{
         return year_of_birth_t;
     }
 
-    bool Citizen::operator<(const Citizen& citizen){
-        return id_t < citizen.id_t;
+    bool Citizen::operator<(const Citizen& citizen) const{
+        return getId() < citizen.getId();
     }
 
-    bool Citizen::operator>(const Citizen& citizen){
-        return id_t > citizen.id_t;
+    bool Citizen::operator>(const Citizen& citizen) const{
+        return getId() > citizen.getId();
     }
 
-    bool Citizen::operator==(const Citizen& citizen){
-        return id_t == citizen.id_t;
+    bool Citizen::operator==(const Citizen& citizen) const{
+        return getId() == citizen.getId();
     }
 
-    bool Citizen::operator<=(const Citizen& citizen){
-        return id_t <= citizen.id_t;
+    bool Citizen::operator<=(const Citizen& citizen) const{
+        return getId() <= citizen.getId();
     }
 
-    bool Citizen::operator>=(const Citizen& citizen){
-        return id_t >= citizen.id_t;
+    bool Citizen::operator>=(const Citizen& citizen) const{
+        return getId() >= citizen.getId();
     }
 
-    bool Citizen::operator!=(const Citizen& citizen){
-        return id_t != citizen.id_t;
+    bool Citizen::operator!=(const Citizen& citizen) const{
+        return getId() != citizen.getId();
     }
 
     int CitizenPlus::getSalary() const{

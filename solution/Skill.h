@@ -36,15 +36,15 @@ public:
     std::string getName() const;
 
     friend std::ostream& operator<<(std::ostream& os, const Skill& skill); // Note that this is not a memeber function, rather it is defined as a friend.
-    bool operator>(const Skill& rvalue);
-    bool operator<(const Skill& rvalue);
-    bool operator>=(const Skill& rvalue);
-    bool operator<=(const Skill& rvalue);
-    bool operator==(const Skill& rvalue);
-    bool operator!=(const Skill& rvalue);
+    bool operator>(const Skill& rvalue) const;
+    bool operator<(const Skill& rvalue) const;
+    bool operator>=(const Skill& rvalue) const;
+    bool operator<=(const Skill& rvalue) const;
+    bool operator==(const Skill& rvalue) const;
+    bool operator!=(const Skill& rvalue) const;
     void operator++(int);
     void operator+=(int points);
-    int operator+(int points); // Verify if understood correctly
+    int operator+(int points) const; // Verify if understood correctly
 };
 }
 #endif

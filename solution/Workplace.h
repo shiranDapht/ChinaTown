@@ -28,6 +28,7 @@ public:
     void hireManager(const Manager* manager);
     void fireEmployee(int employee_id, int manager_id);
     void fireManager(int manager_id);
+    bool operator<(const Workplace& workplace) const;
     friend ostream& operator<<(ostream& os, Workplace& workplace);
 };
 
