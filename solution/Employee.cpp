@@ -6,8 +6,7 @@
 namespace mtm{
 
 Employee::Employee(const int id, const std::string first_name, const std::string last_name, const int year) :
-            CitizenPlus(id, first_name, last_name, year), score_t(0) {
-                skills_t = std::set<Skill>();
+            CitizenPlus(id, first_name, last_name, year), score_t(0), skills_t(std::set<Skill>()) {
 }
 
 int Employee::getScore() const{
@@ -18,7 +17,7 @@ void Employee::learnSkill(const Skill skill){
     if(score_t < skill.getRequiredPoints()){
         throw CanNotLearnSkill();
     }
-    if(skills_t.find(skill) == skills_t.end()){
+    if(skills_t.find(skill) != skills_t.end()){
         throw SkillAlreadyLearned();
     }
     skills_t.insert(skill);
@@ -50,7 +49,7 @@ void Employee::setScore(const int add_score){
 
 ostream& Employee::printShort(ostream& os) const{
     os << getFirstName() + std::string(" ") + getLastName() + std::string("\n") + std::string("Salary: ") 
-        + std::to_string(getSalary()) + std::string("Score: ") + std::to_string(getScore()) <<std::endl;
+        + std::to_string(getSalary()) + std::string(" Score: ") + std::to_string(getScore()) <<std::endl;
     return os;
 }
 

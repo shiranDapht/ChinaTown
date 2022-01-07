@@ -21,13 +21,16 @@ void Manager::addEmployee(const Employee* employee){
     if(employees_t.find(*employee) == employees_t.end()){
         employees_t.insert(*employee);
     }
-    throw EmployeeAlreadyExists();
+    else{
+        throw EmployeeAlreadyExists();
+    }
 }
 
 void Manager::removeEmployee(const int employee_id){
     for(const Employee& employee : employees_t){
         if(employee.getId() == employee_id){
             employees_t.erase(employee);
+            return;
         }
     }
     throw EmployeeIsNotHired();

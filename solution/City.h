@@ -77,6 +77,7 @@ void City::hireEmployeeAtWorkplace(const Condition cond, const int employee_id,c
                             new_workplace.hireEmployee(cond, &employee, manager.getId());
                             workplaces_t.erase(workplace);
                             workplaces_t.insert(new_workplace);
+                            return;
                         }
                     }
                     throw WorkplaceDoesNotExist();

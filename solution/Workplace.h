@@ -35,7 +35,7 @@ public:
 template<class IsAcceptedToWorkFunctor>
 void Workplace::hireEmployee(IsAcceptedToWorkFunctor isAccepted, const Employee* employee, int manager_id){
     Employee not_const_employee = Employee(*employee);
-    if(isAccepted(&not_const_employee)){
+    if(!isAccepted(&not_const_employee)){
         throw EmployeeNotSelected();
     }
     for(const Manager& manager : managers_set_t){

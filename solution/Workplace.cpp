@@ -69,6 +69,7 @@ void Workplace::fireManager(int manager_id){
     for(const Manager& manager : managers_set_t){
         if(manager.getId() == manager_id){
             managers_set_t.erase(manager);
+            return;
         }
     }
     throw ManagerIsNotHired();
