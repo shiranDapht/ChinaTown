@@ -168,6 +168,7 @@ int City::getAllAboveSalary(ostream& os, const int salary_bar){
             count++;
         }
     }
+    set_union.clear();
     return count;
 }
 

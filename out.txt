@@ -1,12 +1,51 @@
-/usr/bin/ld: /tmp/ccEj4l9N.o: in function `main':
-city_test.cpp:(.text+0x4a5): undefined reference to `void mtm::City::addFaculty<FacultyCondition1*>(int, mtm::Skill const&, int, FacultyCondition1*)'
-/usr/bin/ld: city_test.cpp:(.text+0x4cf): undefined reference to `void mtm::City::addFaculty<FacultyCondition2*>(int, mtm::Skill const&, int, FacultyCondition2*)'
-/usr/bin/ld: city_test.cpp:(.text+0x5ea): undefined reference to `void mtm::City::hireEmployeeAtWorkplace<HiringCondition>(HiringCondition, int, int, int)'
-/usr/bin/ld: city_test.cpp:(.text+0x608): undefined reference to `void mtm::City::hireEmployeeAtWorkplace<HiringCondition>(HiringCondition, int, int, int)'
-/usr/bin/ld: city_test.cpp:(.text+0x626): undefined reference to `void mtm::City::hireEmployeeAtWorkplace<HiringCondition>(HiringCondition, int, int, int)'
-/usr/bin/ld: /tmp/ccEj4l9N.o: in function `void __gnu_cxx::new_allocator<std::_Rb_tree_node<mtm::Faculty<mtm::Condition> > >::destroy<mtm::Faculty<mtm::Condition> >(mtm::Faculty<mtm::Condition>*)':
-city_test.cpp:(.text._ZN9__gnu_cxx13new_allocatorISt13_Rb_tree_nodeIN3mtm7FacultyINS2_9ConditionEEEEE7destroyIS5_EEvPT_[_ZN9__gnu_cxx13new_allocatorISt13_Rb_tree_nodeIN3mtm7FacultyINS2_9ConditionEEEEE7destroyIS5_EEvPT_]+0x18): undefined reference to `mtm::Faculty<mtm::Condition>::~Faculty()'
-/usr/bin/ld: /tmp/cc21aKsw.o: in function `mtm::City::teachAtFaculty(int, int)':
-City.cpp:(.text+0x7f7): undefined reference to `mtm::Faculty<mtm::Condition>::getId() const'
-/usr/bin/ld: City.cpp:(.text+0x83a): undefined reference to `mtm::Faculty<mtm::Condition>::teach(mtm::Employee&) const'
-collect2: error: ld returned 1 exit status
+==77853== Memcheck, a memory error detector
+==77853== Copyright (C) 2002-2017, and GNU GPL'd, by Julian Seward et al.
+==77853== Using Valgrind-3.18.1 and LibVEX; rerun with -h for copyright info
+==77853== Command: ./prog
+==77853== 
+getAllAboveSalary output: 
+
+printAllEmployeesWithSkill output
+John Williams
+Salary: 0 Score: 25
+Alex Martinez
+Salary: 0 Score: 10
+Lionel Smith
+Salary: 0 Score: 10
+getAllAboveSalary output: 
+
+printAllEmployeesWithSkill output
+John Williams
+Salary: 0 Score: 25
+Alex Martinez
+Salary: 0 Score: 10
+Lionel Smith
+Salary: 0 Score: 10
+==77853== 
+==77853== HEAP SUMMARY:
+==77853==     in use at exit: 740 bytes in 16 blocks
+==77853==   total heap usage: 251 allocs, 235 frees, 96,667 bytes allocated
+==77853== 
+==77853== 740 (432 direct, 308 indirect) bytes in 6 blocks are definitely lost in loss record 4 of 4
+==77853==    at 0x483F013: operator new(unsigned long) (in /usr/lib/valgrind/vgpreload_memcheck-amd64-linux.so)
+==77853==    by 0x11250F: __gnu_cxx::new_allocator<std::_Rb_tree_node<mtm::Skill> >::allocate(unsigned long, void const*) (new_allocator.h:121)
+==77853==    by 0x1123F5: std::allocator_traits<std::allocator<std::_Rb_tree_node<mtm::Skill> > >::allocate(std::allocator<std::_Rb_tree_node<mtm::Skill> >&, unsigned long) (alloc_traits.h:460)
+==77853==    by 0x112174: std::_Rb_tree<mtm::Skill, mtm::Skill, std::_Identity<mtm::Skill>, std::less<mtm::Skill>, std::allocator<mtm::Skill> >::_M_get_node() (stl_tree.h:561)
+==77853==    by 0x111F7D: std::_Rb_tree_node<mtm::Skill>* std::_Rb_tree<mtm::Skill, mtm::Skill, std::_Identity<mtm::Skill>, std::less<mtm::Skill>, std::allocator<mtm::Skill> >::_M_create_node<mtm::Skill const&>(mtm::Skill const&) (stl_tree.h:611)
+==77853==    by 0x111CB6: std::_Rb_tree_node<mtm::Skill>* std::_Rb_tree<mtm::Skill, mtm::Skill, std::_Identity<mtm::Skill>, std::less<mtm::Skill>, std::allocator<mtm::Skill> >::_Alloc_node::operator()<mtm::Skill const&>(mtm::Skill const&) const (stl_tree.h:529)
+==77853==    by 0x1119E3: std::_Rb_tree_node<mtm::Skill>* std::_Rb_tree<mtm::Skill, mtm::Skill, std::_Identity<mtm::Skill>, std::less<mtm::Skill>, std::allocator<mtm::Skill> >::_M_clone_node<false, std::_Rb_tree<mtm::Skill, mtm::Skill, std::_Identity<mtm::Skill>, std::less<mtm::Skill>, std::allocator<mtm::Skill> >::_Alloc_node>(std::_Rb_tree_node<mtm::Skill>*, std::_Rb_tree<mtm::Skill, mtm::Skill, std::_Identity<mtm::Skill>, std::less<mtm::Skill>, std::allocator<mtm::Skill> >::_Alloc_node&) (stl_tree.h:645)
+==77853==    by 0x110F95: std::_Rb_tree_node<mtm::Skill>* std::_Rb_tree<mtm::Skill, mtm::Skill, std::_Identity<mtm::Skill>, std::less<mtm::Skill>, std::allocator<mtm::Skill> >::_M_copy<false, std::_Rb_tree<mtm::Skill, mtm::Skill, std::_Identity<mtm::Skill>, std::less<mtm::Skill>, std::allocator<mtm::Skill> >::_Alloc_node>(std::_Rb_tree_node<mtm::Skill>*, std::_Rb_tree_node_base*, std::_Rb_tree<mtm::Skill, mtm::Skill, std::_Identity<mtm::Skill>, std::less<mtm::Skill>, std::allocator<mtm::Skill> >::_Alloc_node&) (stl_tree.h:1847)
+==77853==    by 0x10FFCC: std::_Rb_tree_node<mtm::Skill>* std::_Rb_tree<mtm::Skill, mtm::Skill, std::_Identity<mtm::Skill>, std::less<mtm::Skill>, std::allocator<mtm::Skill> >::_M_copy<false, std::_Rb_tree<mtm::Skill, mtm::Skill, std::_Identity<mtm::Skill>, std::less<mtm::Skill>, std::allocator<mtm::Skill> >::_Alloc_node>(std::_Rb_tree<mtm::Skill, mtm::Skill, std::_Identity<mtm::Skill>, std::less<mtm::Skill>, std::allocator<mtm::Skill> > const&, std::_Rb_tree<mtm::Skill, mtm::Skill, std::_Identity<mtm::Skill>, std::less<mtm::Skill>, std::allocator<mtm::Skill> >::_Alloc_node&) (stl_tree.h:890)
+==77853==    by 0x10EEBA: std::_Rb_tree<mtm::Skill, mtm::Skill, std::_Identity<mtm::Skill>, std::less<mtm::Skill>, std::allocator<mtm::Skill> >::_M_copy(std::_Rb_tree<mtm::Skill, mtm::Skill, std::_Identity<mtm::Skill>, std::less<mtm::Skill>, std::allocator<mtm::Skill> > const&) (stl_tree.h:901)
+==77853==    by 0x10E2BD: std::_Rb_tree<mtm::Skill, mtm::Skill, std::_Identity<mtm::Skill>, std::less<mtm::Skill>, std::allocator<mtm::Skill> >::_Rb_tree(std::_Rb_tree<mtm::Skill, mtm::Skill, std::_Identity<mtm::Skill>, std::less<mtm::Skill>, std::allocator<mtm::Skill> > const&) (stl_tree.h:939)
+==77853==    by 0x10D524: std::set<mtm::Skill, std::less<mtm::Skill>, std::allocator<mtm::Skill> >::set(std::set<mtm::Skill, std::less<mtm::Skill>, std::allocator<mtm::Skill> > const&) (stl_set.h:223)
+==77853== 
+==77853== LEAK SUMMARY:
+==77853==    definitely lost: 432 bytes in 6 blocks
+==77853==    indirectly lost: 308 bytes in 10 blocks
+==77853==      possibly lost: 0 bytes in 0 blocks
+==77853==    still reachable: 0 bytes in 0 blocks
+==77853==         suppressed: 0 bytes in 0 blocks
+==77853== 
+==77853== For lists of detected and suppressed errors, rerun with: -s
+==77853== ERROR SUMMARY: 1 errors from 1 contexts (suppressed: 0 from 0)
