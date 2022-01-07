@@ -17,9 +17,9 @@ class Faculty
 private:
 
     int id_t;
+    T* isAccepted_t;
     Skill skill_t;
     int added_pointes_t;
-    T* isAccepted_t;
 public:
     Faculty(int id, T* isAccepted, Skill skill, int added_pointes);
     Faculty(const Faculty& fac);
