@@ -9,7 +9,6 @@ Manager::Manager(int id, std::string first_name, std::string last_name, int year
     CitizenPlus(id, first_name, last_name, year), employees_t(std::set<Employee>()), is_hired_t(false) {}
 
 
-
 bool Manager::getIsHired() const{
     return is_hired_t;
 }

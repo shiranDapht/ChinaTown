@@ -24,7 +24,7 @@ public:
     double  getWorkersSalary() const;
     std::string getName() const;
     int getId() const;
-    template<class IsAcceptedToWorkFunctor> void hireEmployee(IsAcceptedToWorkFunctor isAccepted, Employee* employee, int manager_id);
+    template<class IsAcceptedToWorkFunctor> void hireEmployee(IsAcceptedToWorkFunctor isAccepted, const Employee* employee, int manager_id);
     void hireManager(const Manager* manager);
     void fireEmployee(int employee_id, int manager_id);
     void fireManager(int manager_id);
@@ -32,7 +32,23 @@ public:
     friend ostream& operator<<(ostream& os, Workplace& workplace);
 };
 
-
+template<class IsAcceptedToWorkFunctor>
+void Workplace::hireEmployee(IsAcceptedToWorkFunctor isAccepted, const Employee* employee, int manager_id){
+    Employee not_const_employee = Employee(*employee);
+    if(isAccepted(&not_const_employee)){
+        throw EmployeeNotSelected();
+    }
+    for(const Manager& manager : managers_set_t){
+        if(manager.getId() == manager_id){
+            Manager new_manager = Manager(manager);
+            new_manager.addEmployee(employee);
+            managers_set_t.erase(manager);
+            managers_set_t.insert(new_manager);
+            return;
+        }
+    }
+    throw ManagerIsNotHired();
+}
 
 
 

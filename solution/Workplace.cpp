@@ -24,7 +24,7 @@ std::string Workplace::getName() const{
 int Workplace::getId() const{
     return id_t;
 }
-
+/*
 template<class IsAcceptedToWorkFunctor>
 void Workplace::hireEmployee(IsAcceptedToWorkFunctor isAccepted, Employee* employee, int manager_id){
     if(isAccepted(*employee)){
@@ -41,7 +41,7 @@ void Workplace::hireEmployee(IsAcceptedToWorkFunctor isAccepted, Employee* emplo
     }
     throw ManagerIsNotHired();
 }
-
+*/
 void Workplace::hireManager(const Manager* manager){
     if(managers_set_t.find(*manager) != managers_set_t.end()){
         throw ManagerAlreadyHired();

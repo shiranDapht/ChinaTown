@@ -3,7 +3,7 @@
 #include <functional>
 namespace mtm{
 using namespace mtm;
-
+/*
 template<class T>
 Faculty<T>::Faculty(int id, T* isAccepted, Skill skill, int added_pointes): id_t(id), isAccepted_t(isAccepted), skill_t(skill), added_pointes_t(added_pointes){
 }
@@ -32,12 +32,12 @@ Skill Faculty<T>::getSkill() const{
 
 template<class T>
 void Faculty<T>::teach(Employee& employee) const{
-    if(isAccepted_t(employee)){
+    if((*isAccepted_t)(employee)){
         employee.learnSkill(getSkill());
         employee.setScore(getAddedPoints());
      return;   
     }
     throw EmployeeNotAccepted();
 }
-
+*/
 }

@@ -1,8 +1,8 @@
-#include "City.h"
-#include "Manager.h"
 #include "Employee.h"
+#include "Manager.h"
 #include "Faculty.h"
 #include "Workplace.h"
+#include "City.h"
 #include "exceptions.h"
 
 #include <memory>
@@ -11,7 +11,7 @@
 namespace mtm{
 
 City::City(std::string city_name) : city_name_t(city_name), employees_t(std::set<Employee>()),
-    managers_t(std::set<Manager>()), faculties_t(std::set<Faculty<Condition>>()), 
+    managers_t(std::set<Manager>()), faculties_t(std::set<Faculty<Condition>, CompareFaculties>()), 
     workplaces_t(std::set<Workplace>()){};
 
 void City::addEmployee(const int id, const std::string first_name, const std::string last_name, const int year){
@@ -29,16 +29,16 @@ void City::addManager(const int id, const std::string first_name, const std::str
     }
     managers_t.insert(new_manager);
 }
-
+/*
 template<class IsAccepted>
 void City::addFaculty(const int id,const Skill& skill, const int added_pointes, const IsAccepted isAccepted){
-    Faculty<IsAccepted> new_faculty = Faculty<IsAccepted>(id, isAccepted, skill, added_pointes);
+    Faculty<IsAccepted> new_faculty = Faculty<IsAccepted>(id, *isAccepted, skill, added_pointes);
     if(faculties_t.find(new_faculty) != faculties_t.end()){
         throw FacultyAlreadyExists();
     }
     faculties_t.insert(new_faculty);
 }
-
+*/
 void City::createWorkplace(int id, std::string name, double workers_salary, double managers_salary){
     Workplace new_workplace = Workplace(id,name,workers_salary,managers_salary);
     if(workplaces_t.find(new_workplace) != workplaces_t.end()){
@@ -65,7 +65,7 @@ void City::teachAtFaculty(const int employee_id, const int faculty_id){
     }
     throw EmployeeDoesNotExist();
 }
-
+/*
 template<class Condition>
 void City::hireEmployeeAtWorkplace(const Condition cond, const int employee_id,const int manager_id, const int workplace_id){
     for(const Employee& employee : employees_t){
@@ -85,7 +85,7 @@ void City::hireEmployeeAtWorkplace(const Condition cond, const int employee_id,c
     }
     throw EmployeeDoesNotExist();
 }
-
+*/
 void City::hireManagerAtWorkplace(const int manager_id, const int workplace_id){
     for(const Manager& manager : managers_t){
         if(manager.getId() == manager_id){

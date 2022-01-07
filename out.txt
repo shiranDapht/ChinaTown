@@ -1,12 +1,12 @@
-/usr/bin/ld: /tmp/ccLnnAC4.o: in function `main':
+/usr/bin/ld: /tmp/ccEj4l9N.o: in function `main':
 city_test.cpp:(.text+0x4a5): undefined reference to `void mtm::City::addFaculty<FacultyCondition1*>(int, mtm::Skill const&, int, FacultyCondition1*)'
 /usr/bin/ld: city_test.cpp:(.text+0x4cf): undefined reference to `void mtm::City::addFaculty<FacultyCondition2*>(int, mtm::Skill const&, int, FacultyCondition2*)'
 /usr/bin/ld: city_test.cpp:(.text+0x5ea): undefined reference to `void mtm::City::hireEmployeeAtWorkplace<HiringCondition>(HiringCondition, int, int, int)'
 /usr/bin/ld: city_test.cpp:(.text+0x608): undefined reference to `void mtm::City::hireEmployeeAtWorkplace<HiringCondition>(HiringCondition, int, int, int)'
 /usr/bin/ld: city_test.cpp:(.text+0x626): undefined reference to `void mtm::City::hireEmployeeAtWorkplace<HiringCondition>(HiringCondition, int, int, int)'
-/usr/bin/ld: /tmp/ccLnnAC4.o: in function `void __gnu_cxx::new_allocator<std::_Rb_tree_node<mtm::Faculty<mtm::Condition> > >::destroy<mtm::Faculty<mtm::Condition> >(mtm::Faculty<mtm::Condition>*)':
+/usr/bin/ld: /tmp/ccEj4l9N.o: in function `void __gnu_cxx::new_allocator<std::_Rb_tree_node<mtm::Faculty<mtm::Condition> > >::destroy<mtm::Faculty<mtm::Condition> >(mtm::Faculty<mtm::Condition>*)':
 city_test.cpp:(.text._ZN9__gnu_cxx13new_allocatorISt13_Rb_tree_nodeIN3mtm7FacultyINS2_9ConditionEEEEE7destroyIS5_EEvPT_[_ZN9__gnu_cxx13new_allocatorISt13_Rb_tree_nodeIN3mtm7FacultyINS2_9ConditionEEEEE7destroyIS5_EEvPT_]+0x18): undefined reference to `mtm::Faculty<mtm::Condition>::~Faculty()'
-/usr/bin/ld: /tmp/ccLIKY41.o: in function `mtm::City::teachAtFaculty(int, int)':
+/usr/bin/ld: /tmp/cc21aKsw.o: in function `mtm::City::teachAtFaculty(int, int)':
 City.cpp:(.text+0x7f7): undefined reference to `mtm::Faculty<mtm::Condition>::getId() const'
 /usr/bin/ld: City.cpp:(.text+0x83a): undefined reference to `mtm::Faculty<mtm::Condition>::teach(mtm::Employee&) const'
 collect2: error: ld returned 1 exit status
