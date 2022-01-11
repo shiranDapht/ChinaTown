@@ -5,8 +5,10 @@
 #include "City.h"
 #include "exceptions.h"
 
+#include <vector>   
 #include <memory>
 #include <string>
+#include <algorithm>
 
 namespace mtm{
 
@@ -155,20 +157,23 @@ class Comparator{
 
 int City::getAllAboveSalary(ostream& os, const int salary_bar){
     int count = 0;
-    std::set<std::unique_ptr<CitizenPlus>, Comparator> set_union = std::set<std::unique_ptr<CitizenPlus> , Comparator>();
+    //std::set<std::unique_ptr<CitizenPlus>, Comparator> set_union = std::set<std::unique_ptr<CitizenPlus> , Comparator>();
+    std::vector<std::unique_ptr<CitizenPlus>> vector_union;
     for(const Employee& employee : employees_t){
-        set_union.insert(std::unique_ptr<CitizenPlus>(employee.clone()));
+        //set_union.insert(std::unique_ptr<CitizenPlus>(employee.clone()));
+        vector_union.push_back(std::unique_ptr<CitizenPlus>(employee.clone()));
     }
     for(const Manager& manager : managers_t){
-        set_union.insert(std::unique_ptr<CitizenPlus>(manager.clone()));
+        //set_union.insert(std::unique_ptr<CitizenPlus>(manager.clone()));
+        vector_union.push_back(std::unique_ptr<CitizenPlus>(manager.clone()));
     }
-    for(const std::unique_ptr<CitizenPlus>& citizen : set_union){
+    std::sort(vector_union.begin(),vector_union.end(), Comparator());
+    for(const std::unique_ptr<CitizenPlus>& citizen : vector_union){
         if((*citizen).getSalary() >= salary_bar){
             (*citizen).printShort(os);
             count++;
         }
     }
-    set_union.clear();
     return count;
 }
 

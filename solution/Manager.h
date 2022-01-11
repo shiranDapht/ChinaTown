@@ -14,7 +14,7 @@ namespace mtm{
 class Manager : public CitizenPlus
 {
 private:
-    std::set<Employee> employees_t;
+    std::set<const Employee*> employees_t;
     bool is_hired_t;
 
 public:
@@ -34,6 +34,13 @@ public:
     bool getIsHired() const;
     void setIsHired(const bool is_hired);
     ostream& printEmployees(ostream& os) const;
+    /**
+     * @brief Get the Employee By Id object
+     * 
+     * @param id 
+     * @return const Employee*, if employee doesn't exist return nullptr
+     */
+    const Employee* getEmployeeById(const int id) const;
 };
 
 }

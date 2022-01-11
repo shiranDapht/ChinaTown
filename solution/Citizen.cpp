@@ -47,7 +47,7 @@ namespace mtm{
         return salary_t;
     }
 
-    void CitizenPlus::setSalary(int salary){
-        salary_t = salary + salary_t < 0 ? 0 : salary + salary_t;
+    void CitizenPlus::setSalary(const double add_salary){
+        salary_t = add_salary + salary_t < 0 ? 0 : add_salary + salary_t;
     }
 }

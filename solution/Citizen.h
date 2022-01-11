@@ -59,7 +59,7 @@ namespace mtm{
         CitizenPlus(const CitizenPlus& citizen_plus) = default;
         ~CitizenPlus() = default;
         int getSalary() const;
-        void setSalary(const int add_salary);
+        void setSalary(const double add_salary);
     };
 
 
