@@ -57,14 +57,20 @@ ostream& Employee::printLong(ostream& os) const{
     os << getFirstName() + std::string(" ") + getLastName() + std::string("\n")
         + std::string("id - ") + std::to_string(getId()) + std::string(" birth_year - ") + std::to_string(getBirthYear())
         + std::string("\n") + std::string("Salary: ") + std::to_string(getSalary()) + std::string(" Score: ") 
-        + std::to_string(getScore()) + std::string(" Skills: ")  << std::endl;
+        + std::to_string(getScore());
     printSkills(os);
     return os;
 }
 
 ostream& Employee::printSkills(ostream& os) const{
-    for(const Skill& skill : skills_t){
-        os << skill.getName() << std::endl;
+    if(!skills_t.empty()){
+        os << std::string(" Skills: ") << std::endl;
+        for(const Skill& skill : skills_t){
+            os << skill.getName() << std::endl;
+        }
+    }
+    else{
+        os << std::endl;
     }
     return os;
 }

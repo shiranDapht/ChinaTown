@@ -12,7 +12,7 @@ private:
 public:
     Skill(int id, std::string name, int required_points);
     Skill(const Skill& skill);
-    ~Skill();
+    ~Skill() = default;
 
     /**
      * @brief Get the Id object
@@ -44,7 +44,7 @@ public:
     bool operator!=(const Skill& rvalue) const;
     void operator++(int);
     void operator+=(int points);
-    int operator+(int points) const; // Verify if understood correctly
+    int operator+(int points) const;
 };
 }
 #endif

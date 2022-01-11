@@ -5,6 +5,7 @@
 #include <set>
 #include <memory>
 #include <iostream>
+#include <vector>
 
 #include "Skill.h"
 #include "Citizen.h"
@@ -16,22 +17,14 @@
 
 namespace mtm{
 
-class CompareFaculties{
-    public:
-    bool operator()(const Faculty<Condition>& f1, const Faculty<Condition>& f2){
-        return f1.getId() < f2.getId();
-    }
-};
-
-
 class City
 {
 private:
     std::string city_name_t;
-    std::set<Employee> employees_t;
-    std::set<Manager> managers_t;
-    std::set<Faculty<Condition>, CompareFaculties> faculties_t;
-    std::set<Workplace> workplaces_t;
+    std::vector<Employee> employees_t;
+    std::vector<Manager> managers_t;
+    std::vector<Faculty<Condition>> faculties_t;
+    std::vector<Workplace> workplaces_t;
 public:
     City(std::string city_name);
     City(const City& city) = delete;
@@ -51,42 +44,56 @@ public:
     int getAllAboveSalary(ostream& os, const int salary_bar);
     bool isWorkingInTheSameWorkplace(const int employee_id1, const int employee_id2);
     void printAllEmployeesWithSkill(ostream& os, const int id);
+
+    /**
+     * @brief Get the Employee By Id object
+     * 
+     * @param id 
+     * @return const Employee*, if does not exist throw exception
+     */
+    Employee* getEmployeeById(const int id);
+
+    /**
+     * @brief Get the Manager By Id object
+     * 
+     * @param id 
+     * @return const Manager*, if does not exist throw exception
+     */
+    Manager* getManagerById(const int id);
+
+    /**
+     * @brief Get the Workplace By Id object
+     * 
+     * @param id 
+     * @return const Workplace*, if does not exist throw exception
+     */
+    Workplace* getWorkplaceById(const int id);
+
+    /**
+     * @brief Get the Faculty By Id object
+     * 
+     * @param id 
+     * @return Faculty<Condition>*, if does not exist throw exception
+     */
+    Faculty<Condition>* getFacultyById(const int id);
 };
 
 template<class IsAccepted>
 void City::addFaculty(const int id,const Skill& skill, const int added_pointes, IsAccepted* isAccepted){
-    for(const Faculty<Condition>& faculty : faculties_t){
-        if(faculty.getId() == id){
-            throw FacultyAlreadyExists();
-        }
+    try{
+        getFacultyById(id);
+        throw FacultyAlreadyExists();
     }
-    Faculty<Condition> new_faculty = Faculty<Condition>(id, isAccepted, skill, added_pointes);
-    faculties_t.insert(new_faculty);
+    catch(FacultyDoesNotExist&){
+        faculties_t.push_back(Faculty<Condition>(id, isAccepted, skill, added_pointes));
+    }
 }
 
 
 template<class Condition>
 void City::hireEmployeeAtWorkplace(const Condition cond, const int employee_id,const int manager_id, const int workplace_id){
-    for(const Employee& employee : employees_t){
-        if(employee.getId() == employee_id){
-            for(const Manager& manager : managers_t){
-                if(manager.getId() == manager_id){
-                    for(const Workplace& workplace : workplaces_t){
-                        if(workplace.getId() == workplace_id){
-                            Workplace new_workplace = Workplace(workplace);
-                            new_workplace.hireEmployee(cond, &employee, manager.getId());
-                            workplaces_t.erase(workplace);
-                            workplaces_t.insert(new_workplace);
-                            return;
-                        }
-                    }
-                    throw WorkplaceDoesNotExist();
-                }
-            }
-            throw ManagerDoesNotExist();
-        }
-    }
-    throw EmployeeDoesNotExist();
+    getManagerById(manager_id);
+    getWorkplaceById(workplace_id)->hireEmployee(cond, getEmployeeById(employee_id), manager_id);
 }
 
 

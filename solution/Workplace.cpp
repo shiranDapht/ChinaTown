@@ -6,7 +6,7 @@ namespace mtm{
 
 
 Workplace::Workplace(int id, std::string name, double workers_salary, double managers_salary):
-id_t(id), name_t(name), workers_salary_t(workers_salary), managers_salary_t(managers_salary), managers_set_t(std::set<Manager>()){
+id_t(id), name_t(name), workers_salary_t(workers_salary), managers_salary_t(managers_salary), managers_set_t(std::set<Manager*>()){
 }
 
 double Workplace::getManagersSalary() const{
@@ -24,68 +24,55 @@ std::string Workplace::getName() const{
 int Workplace::getId() const{
     return id_t;
 }
-/*
-template<class IsAcceptedToWorkFunctor>
-void Workplace::hireEmployee(IsAcceptedToWorkFunctor isAccepted, Employee* employee, int manager_id){
-    if(isAccepted(*employee)){
-        throw EmployeeNotSelected();
-    }
-    for(const Manager& manager : managers_set_t){
-        if(manager.getId() == manager_id){
-            Manager new_manager = Manager(manager);
-            new_manager.addEmployee(employee);
-            managers_set_t.erase(manager);
-            managers_set_t.insert(new_manager);
-            return;
-        }
-    }
-    throw ManagerIsNotHired();
-}
-*/
-void Workplace::hireManager(const Manager* manager){
-    if(managers_set_t.find(*manager) != managers_set_t.end()){
+
+
+void Workplace::hireManager(Manager* manager){
+    try{
+        getManagerById(manager->getId());// getManagerById throws ManagerIsNotHired if manager isn't hired.
         throw ManagerAlreadyHired();
     }
-    if(manager->getIsHired()){
-        throw CanNotHireManager();
+    catch(ManagerIsNotHired&){
+        if(manager->getIsHired()){
+            throw CanNotHireManager();
+        }
+        manager->setSalary(managers_salary_t);
+        managers_set_t.insert(manager);
+        return;
     }
-    managers_set_t.insert(*manager);
 }
 
 void Workplace::fireEmployee(int employee_id, int manager_id){
-    for(const Manager& manager : managers_set_t){
-        if(manager.getId() == manager_id){
-            Manager new_manager = Manager(manager);
-            new_manager.removeEmployee(employee_id);
-            managers_set_t.erase(manager);
-            managers_set_t.insert(new_manager);
-            return;
-        }
-    }
-    throw ManagerIsNotHired();
+    Manager* manager = getManagerById(manager_id);
+    manager->getEmployeeById(employee_id)->setSalary(-getWorkersSalary());
+    manager->removeEmployee(employee_id);
 }
 
 void Workplace::fireManager(int manager_id){
-    for(const Manager& manager : managers_set_t){
-        if(manager.getId() == manager_id){
-            managers_set_t.erase(manager);
-            return;
-        }
-    }
-    throw ManagerIsNotHired();
+    Manager* manager = getManagerById(manager_id);
+    manager->fireAllEmployees(getWorkersSalary());
+    manager->setIsHired(false);
+    manager->setSalary(-getManagersSalary());
+    managers_set_t.erase(manager);
 }
 
 ostream& operator<<(ostream& os, Workplace& workplace){
-    os << std::string("Workplace name - ") + workplace.getName() + std::string(" Groups:\n") << std::endl;
-    for(const Manager& manager : workplace.managers_set_t){
-        manager.printLong(os);
+    os << std::string("Workplace name - ") + workplace.getName();
+    if(!workplace.managers_set_t.empty()){
+        os << " Groups:\n";
+        for(Manager* const manager : workplace.managers_set_t){
+            os << "Manager ";
+            manager->printLong(os);
+        }
+    }
+    else{
+        os << std::endl;
     }
     return os;
 }
 
 bool Workplace::isEmployeeWorkingHere(int id) const{
-    for(const Manager& manager : managers_set_t){
-        if(manager.isEmployeeHere(id)){
+    for(Manager* const manager : managers_set_t){
+        if(manager->isEmployeeHere(id)){
             return true;
         }
     }
@@ -96,5 +83,13 @@ bool Workplace::operator<(const Workplace& workplace) const{
     return getId() < workplace.getId();
 }
 
+Manager* Workplace::getManagerById(const int id) const{
+    for(Manager* const manager : managers_set_t){
+        if(manager->getId() == id){
+            return manager;
+        }
+    }
+    throw ManagerIsNotHired();
+}
 
 }

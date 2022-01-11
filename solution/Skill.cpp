@@ -7,8 +7,6 @@ Skill::Skill(int id, std::string name, int required_points) : id_t(id), required
 }
 Skill::Skill(const Skill& skill) : id_t(skill.id_t), required_points_t(skill.required_points_t), name_t(skill.name_t){
 }
-Skill::~Skill(){
-}
 
 
 int Skill::getId() const{

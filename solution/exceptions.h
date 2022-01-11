@@ -9,21 +9,19 @@ namespace mtm{
  * 
  */
 class Exception : std::exception{};
+class CitizenAlreadyExists : Exception{};
 
 class NegativePoints : Exception{};
 class SkillAlreadyLearned : Exception{};
 class CanNotLearnSkill : Exception{};
 class DidNotLearnSkill : Exception{};
 class EmployeeAlreadyHired : Exception{};
-class EmployeeNotHired : Exception{};
 class EmployeeNotSelected : Exception{};
 class ManagerIsNotHired : Exception{};
 class ManagerAlreadyHired : Exception{};
 class CanNotHireManager : Exception{};
 class EmployeeIsNotHired : Exception{};
 class EmployeeNotAccepted : Exception{};
-class EmployeeAlreadyExists : Exception{};
-class ManagerAlreadyExists : Exception{};
 class FacultyAlreadyExists : Exception{};
 class WorkplaceAlreadyExists : Exception{};
 class EmployeeDoesNotExist : Exception{};

@@ -28,7 +28,7 @@ public:
     int getAddedPoints() const;
     int getId() const;
     Skill getSkill() const;
-    void teach(Employee& employee) const;
+    void teach(Employee* employee) const;
 };
 
 
@@ -60,10 +60,10 @@ Skill Faculty<T>::getSkill() const{
 }
 
 template<class T>
-void Faculty<T>::teach(Employee& employee) const{
-    if((*isAccepted_t)(&employee)){
-        employee.learnSkill(getSkill());
-        employee.setScore(getAddedPoints());
+void Faculty<T>::teach(Employee* employee) const{
+    if((*isAccepted_t)(employee)){
+        employee->learnSkill(getSkill());
+        employee->setScore(getAddedPoints());
      return;   
     }
     throw EmployeeNotAccepted();
