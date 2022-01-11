@@ -64,9 +64,14 @@ Manager* Manager::clone() const{
 }
 
 bool Manager::isEmployeeHere(int id) const{
-    return getEmployeeById(id) != nullptr;
+    for(const Employee* const employee : employees_t){
+        if(employee->getId() == id){
+            return true;;
+        }
+    }
+    return false;
 }
-
+/*
 const Employee* Manager::getEmployeeById(const int id) const{
     for(const Employee* employee : employees_t){
         if(employee->getId() == id){
@@ -75,5 +80,5 @@ const Employee* Manager::getEmployeeById(const int id) const{
     }
     return nullptr;
 }
-
+*/
 }

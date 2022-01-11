@@ -35,7 +35,7 @@ public:
      * @brief Get the Manager By Id object
      * 
      * @param id 
-     * @return Manager*, If manager does not exist return nullptr
+     * @return Manager*, If manager does not exist throw ManagerIsNotHired
      */
     Manager* getManagerById(const int id) const;
 };
@@ -46,9 +46,6 @@ void Workplace::hireEmployee(IsAcceptedToWorkFunctor isAccepted, Employee* emplo
         throw EmployeeNotSelected();
     }
     Manager* manager = getManagerById(manager_id);
-    if(manager == nullptr){
-        throw ManagerIsNotHired();
-    }
     manager->addEmployee(employee);
 }
 

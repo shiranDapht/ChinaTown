@@ -40,7 +40,7 @@ public:
      * @param id 
      * @return const Employee*, if employee doesn't exist return nullptr
      */
-    const Employee* getEmployeeById(const int id) const;
+    //const Employee* getEmployeeById(const int id) const;
 };
 
 }

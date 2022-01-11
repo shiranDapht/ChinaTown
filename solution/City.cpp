@@ -12,144 +12,62 @@
 
 namespace mtm{
 
-City::City(std::string city_name) : city_name_t(city_name), employees_t(std::set<Employee>()),
-    managers_t(std::set<Manager>()), faculties_t(std::set<Faculty<Condition>, CompareFaculties>()), 
-    workplaces_t(std::set<Workplace>()){};
+City::City(std::string city_name) : city_name_t(city_name), employees_t(std::vector<Employee>()),
+    managers_t(std::vector<Manager>()), faculties_t(std::vector<Faculty<Condition>>()), 
+    workplaces_t(std::vector<Workplace>()){};
 
 void City::addEmployee(const int id, const std::string first_name, const std::string last_name, const int year){
-    Employee new_employee = Employee(id, first_name, last_name, year);
-    if(employees_t.find(new_employee) != employees_t.end()){
+    try{
+        getEmployeeById(id);
         throw EmployeeAlreadyExists();
     }
-    employees_t.insert(new_employee);
+    catch(EmployeeDoesNotExist&){
+        employees_t.push_back(Employee(id, first_name, last_name, year));
+    }
 }
 
 void City::addManager(const int id, const std::string first_name, const std::string last_name, const int year){
-    Manager new_manager = Manager(id, first_name, last_name, year);
-    if(managers_t.find(new_manager) != managers_t.end()){
+    try{
+        getManagerById(id);
         throw ManagerAlreadyExists();
     }
-    managers_t.insert(new_manager);
-}
-/*
-template<class IsAccepted>
-void City::addFaculty(const int id,const Skill& skill, const int added_pointes, const IsAccepted isAccepted){
-    Faculty<IsAccepted> new_faculty = Faculty<IsAccepted>(id, *isAccepted, skill, added_pointes);
-    if(faculties_t.find(new_faculty) != faculties_t.end()){
-        throw FacultyAlreadyExists();
+    catch(ManagerDoesNotExist&){
+        managers_t.push_back(Manager(id, first_name, last_name, year));
     }
-    faculties_t.insert(new_faculty);
 }
-*/
+
 void City::createWorkplace(int id, std::string name, double workers_salary, double managers_salary){
-    Workplace new_workplace = Workplace(id,name,workers_salary,managers_salary);
-    if(workplaces_t.find(new_workplace) != workplaces_t.end()){
+    try{
+        getWorkplaceById(id);
         throw WorkplaceAlreadyExists();
     }
-    workplaces_t.insert(new_workplace);
+    catch(WorkplaceDoesNotExist&){
+        workplaces_t.push_back(Workplace(id,name,workers_salary,managers_salary));
+    }
 }
 
 
 void City::teachAtFaculty(const int employee_id, const int faculty_id){
-    for(const Employee& employee : employees_t){
-        if(employee.getId() == employee_id){
-            for(const Faculty<Condition>& faculty : faculties_t){
-                if(faculty.getId() == faculty_id){
-                    Employee new_employee = Employee(employee);
-                    faculty.teach(new_employee);
-                    employees_t.erase(employee);
-                    employees_t.insert(new_employee);
-                    return;
-                }
-            }
-            throw FacultyDoesNotExist();
-        }
-    }
-    throw EmployeeDoesNotExist();
+    getFacultyById(faculty_id)->teach(getEmployeeById(employee_id));
 }
-/*
-template<class Condition>
-void City::hireEmployeeAtWorkplace(const Condition cond, const int employee_id,const int manager_id, const int workplace_id){
-    for(const Employee& employee : employees_t){
-        if(employee.getId() == employee_id){
-            for(const Manager& manager : managers_t){
-                if(manager.getId() == manager_id){
-                    for(const Workplace& workplace : workplaces_t){
-                        if(workplace.getId() == workplace_id){
-                            workplace.hireEmployee(cond, employee, manager);
-                        }
-                    }
-                    throw WorkplaceDoesNotExist();
-                }
-            }
-            throw ManagerDoesNotExist();
-        }
-    }
-    throw EmployeeDoesNotExist();
-}
-*/
 void City::hireManagerAtWorkplace(const int manager_id, const int workplace_id){
-    for(const Manager& manager : managers_t){
-        if(manager.getId() == manager_id){
-            for(const Workplace& workplace : workplaces_t){
-                if(workplace.getId() == workplace_id){
-                    Workplace new_workplace = Workplace(workplace);
-                    new_workplace.hireManager(&manager);
-                    workplaces_t.erase(workplace);
-                    workplaces_t.insert(new_workplace);
-                    return;
-                }
-            }
-            throw WorkplaceDoesNotExist();
-        }
-    }
-    throw ManagerDoesNotExist();
+    getWorkplaceById(workplace_id)->hireManager(getManagerById(manager_id));
 }
 
 void City::fireEmployeeAtWorkplace(const int employee_id,const int manager_id, const int workplace_id){
-        for(const Employee& employee : employees_t){
-        if(employee.getId() == employee_id){
-            for(const Manager& manager : managers_t){
-                if(manager.getId() == manager_id){
-                    for(const Workplace& workplace : workplaces_t){
-                        if(workplace.getId() == workplace_id){
-                            Workplace new_workplace = Workplace(workplace);
-                            new_workplace.fireEmployee(employee_id, manager_id);
-                            workplaces_t.erase(workplace);
-                            workplaces_t.insert(new_workplace);
-                            return;
-                        }
-                    }
-                    throw WorkplaceDoesNotExist();
-                }
-            }
-            throw ManagerDoesNotExist();
-        }
-    }
-    throw EmployeeDoesNotExist();
+    getEmployeeById(employee_id);
+    getManagerById(manager_id);
+    getWorkplaceById(workplace_id)->fireEmployee(employee_id, manager_id);
 }
 
 void City::fireManagerAtWorkplace(const int manager_id, const int workplace_id){
-    for(const Manager& manager : managers_t){
-        if(manager.getId() == manager_id){
-            for(const Workplace& workplace : workplaces_t){
-                if(workplace.getId() == workplace_id){
-                    Workplace new_workplace = Workplace(workplace);
-                    new_workplace.fireManager(manager.getId());
-                    workplaces_t.erase(workplace);
-                    workplaces_t.insert(new_workplace);
-                    return;
-                }
-            }
-            throw WorkplaceDoesNotExist();
-        }
-    }
-    throw ManagerDoesNotExist();
+    getManagerById(manager_id);
+    getWorkplaceById(workplace_id)->fireManager(manager_id);
 }
 
 class Comparator{
     public:
-    bool operator()(const std::unique_ptr<CitizenPlus>& ptr1, const std::unique_ptr<CitizenPlus>& ptr2){
+    bool operator()(const CitizenPlus* ptr1, const CitizenPlus* ptr2){
     return *ptr1 < *ptr2;
     }
 };
@@ -157,18 +75,15 @@ class Comparator{
 
 int City::getAllAboveSalary(ostream& os, const int salary_bar){
     int count = 0;
-    //std::set<std::unique_ptr<CitizenPlus>, Comparator> set_union = std::set<std::unique_ptr<CitizenPlus> , Comparator>();
-    std::vector<std::unique_ptr<CitizenPlus>> vector_union;
+    std::vector<CitizenPlus*> vector_union;
     for(const Employee& employee : employees_t){
-        //set_union.insert(std::unique_ptr<CitizenPlus>(employee.clone()));
-        vector_union.push_back(std::unique_ptr<CitizenPlus>(employee.clone()));
+        vector_union.push_back((CitizenPlus*)&employee);
     }
     for(const Manager& manager : managers_t){
-        //set_union.insert(std::unique_ptr<CitizenPlus>(manager.clone()));
-        vector_union.push_back(std::unique_ptr<CitizenPlus>(manager.clone()));
+        vector_union.push_back((CitizenPlus*)&manager);
     }
     std::sort(vector_union.begin(),vector_union.end(), Comparator());
-    for(const std::unique_ptr<CitizenPlus>& citizen : vector_union){
+    for(CitizenPlus* const citizen : vector_union){
         if((*citizen).getSalary() >= salary_bar){
             (*citizen).printShort(os);
             count++;
@@ -178,6 +93,8 @@ int City::getAllAboveSalary(ostream& os, const int salary_bar){
 }
 
 bool City::isWorkingInTheSameWorkplace(const int employee_id1, const int employee_id2){
+    getEmployeeById(employee_id1);
+    getEmployeeById(employee_id2);
     for(const Workplace& workplace : workplaces_t){
         if(workplace.isEmployeeWorkingHere(employee_id1) && workplace.isEmployeeWorkingHere(employee_id2)){
             return true;
@@ -194,4 +111,39 @@ void City::printAllEmployeesWithSkill(ostream& os, const int id){
     }
 }
 
+Employee* City::getEmployeeById(const int id){
+    for(Employee& employee : employees_t){
+        if(employee.getId() == id){
+            return &employee;
+        }
+    }
+    throw EmployeeDoesNotExist();
+}
+
+Manager* City::getManagerById(const int id){
+    for(Manager& manager : managers_t){
+        if(manager.getId() == id){
+            return &manager;
+        }
+    }
+    throw ManagerDoesNotExist();
+}
+
+Workplace* City::getWorkplaceById(const int id){
+    for(Workplace& workplace : workplaces_t){
+        if(workplace.getId() == id){
+            return &workplace;
+        }
+    }
+    throw WorkplaceDoesNotExist();
+}
+
+Faculty<Condition>* City::getFacultyById(const int id){
+    for(Faculty<Condition>& faculty : faculties_t){
+        if(faculty.getId() == id){
+            return &faculty;
+        }
+    }
+    throw FacultyDoesNotExist();
+}
 }

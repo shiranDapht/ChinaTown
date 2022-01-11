@@ -24,49 +24,30 @@ std::string Workplace::getName() const{
 int Workplace::getId() const{
     return id_t;
 }
-/*
-template<class IsAcceptedToWorkFunctor>
-void Workplace::hireEmployee(IsAcceptedToWorkFunctor isAccepted, Employee* employee, int manager_id){
-    if(isAccepted(*employee)){
-        throw EmployeeNotSelected();
-    }
-    for(const Manager& manager : managers_set_t){
-        if(manager.getId() == manager_id){
-            Manager new_manager = Manager(manager);
-            new_manager.addEmployee(employee);
-            managers_set_t.erase(manager);
-            managers_set_t.insert(new_manager);
-            return;
-        }
-    }
-    throw ManagerIsNotHired();
-}
-*/
+
+
 void Workplace::hireManager(Manager* manager){
-    if(getManagerById(manager->getId())){
+    try{
+        getManagerById(manager->getId());// getManagerById throws ManagerIsNotHired if manager isn't hired.
         throw ManagerAlreadyHired();
     }
-
-    if(manager->getIsHired()){
-        throw CanNotHireManager();
+    catch(ManagerIsNotHired&){
+        if(manager->getIsHired()){
+            throw CanNotHireManager();
+        }
+        manager->setSalary(managers_salary_t);
+        managers_set_t.insert(manager);
+        return;
     }
-    manager->setSalary(managers_salary_t);
-    managers_set_t.insert(manager);
 }
 
 void Workplace::fireEmployee(int employee_id, int manager_id){
     Manager* manager = getManagerById(manager_id);
-    if(manager == nullptr){
-        throw ManagerIsNotHired();
-    }
     manager->removeEmployee(employee_id);
 }
 
 void Workplace::fireManager(int manager_id){
     Manager* manager = getManagerById(manager_id);
-    if(manager == nullptr){
-        throw ManagerIsNotHired();
-    }
     manager->setIsHired(false);
     manager->setSalary(-managers_salary_t);
 }
@@ -98,7 +79,7 @@ Manager* Workplace::getManagerById(const int id) const{
             return manager;
         }
     }
-    return nullptr;
+    throw ManagerIsNotHired();
 }
 
 }
