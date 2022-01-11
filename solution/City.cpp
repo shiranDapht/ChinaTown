@@ -19,7 +19,7 @@ City::City(std::string city_name) : city_name_t(city_name), employees_t(std::vec
 void City::addEmployee(const int id, const std::string first_name, const std::string last_name, const int year){
     try{
         getEmployeeById(id);
-        throw EmployeeAlreadyExists();
+        throw CitizenAlreadyExists();
     }
     catch(EmployeeDoesNotExist&){
         employees_t.push_back(Employee(id, first_name, last_name, year));
@@ -29,7 +29,7 @@ void City::addEmployee(const int id, const std::string first_name, const std::st
 void City::addManager(const int id, const std::string first_name, const std::string last_name, const int year){
     try{
         getManagerById(id);
-        throw ManagerAlreadyExists();
+        throw CitizenAlreadyExists();
     }
     catch(ManagerDoesNotExist&){
         managers_t.push_back(Manager(id, first_name, last_name, year));

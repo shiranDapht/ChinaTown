@@ -45,8 +45,8 @@ void Workplace::hireEmployee(IsAcceptedToWorkFunctor isAccepted, Employee* emplo
     if(!isAccepted(employee)){
         throw EmployeeNotSelected();
     }
-    Manager* manager = getManagerById(manager_id);
-    manager->addEmployee(employee);
+    getManagerById(manager_id)->addEmployee(employee);
+    employee->setSalary(getWorkersSalary());
 }
 
 

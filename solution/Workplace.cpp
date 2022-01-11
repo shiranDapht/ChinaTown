@@ -43,19 +43,29 @@ void Workplace::hireManager(Manager* manager){
 
 void Workplace::fireEmployee(int employee_id, int manager_id){
     Manager* manager = getManagerById(manager_id);
+    manager->getEmployeeById(employee_id)->setSalary(-getWorkersSalary());
     manager->removeEmployee(employee_id);
 }
 
 void Workplace::fireManager(int manager_id){
     Manager* manager = getManagerById(manager_id);
+    manager->fireAllEmployees(getWorkersSalary());
     manager->setIsHired(false);
-    manager->setSalary(-managers_salary_t);
+    manager->setSalary(-getManagersSalary());
+    managers_set_t.erase(manager);
 }
 
 ostream& operator<<(ostream& os, Workplace& workplace){
-    os << std::string("Workplace name - ") + workplace.getName() + std::string(" Groups:\n") << std::endl;
-    for(Manager* const manager : workplace.managers_set_t){
-        manager->printLong(os);
+    os << std::string("Workplace name - ") + workplace.getName();
+    if(!workplace.managers_set_t.empty()){
+        os << " Groups:\n";
+        for(Manager* const manager : workplace.managers_set_t){
+            os << "Manager ";
+            manager->printLong(os);
+        }
+    }
+    else{
+        os << std::endl;
     }
     return os;
 }
