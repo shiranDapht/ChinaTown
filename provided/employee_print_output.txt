@@ -1,0 +1,17 @@
+Short Print
+John Williams
+Salary: 0 Score: 0
+Long Print
+John Williams
+id - 1 birth_year - 2002
+Salary: 0 Score: 0
+----------
+Short Print
+John Williams
+Salary: 0 Score: 0
+Long Print
+John Williams
+id - 1 birth_year - 2002
+Salary: 0 Score: 0 Skills: 
+C++
+Java

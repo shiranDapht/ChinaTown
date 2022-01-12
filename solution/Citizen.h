@@ -4,8 +4,6 @@
 #include <string>
 #include <iostream>
 
-using std::string;
-using std::ostream;
 namespace mtm{
     class Citizen
     {
@@ -17,48 +15,50 @@ namespace mtm{
 
     public:
         Citizen() = default;
-        Citizen(const int id, const std::string first_name, const std::string last_name, const int year): id_t(id), 
-                    first_name_t(first_name), last_name_t(last_name), year_of_birth_t(year) {};
+        Citizen(const int id, const std::string first_name, const std::string last_name, const int year);
         ~Citizen() = default; 
-        Citizen(const Citizen& citizen) {
-            id_t = citizen.id_t;
-            first_name_t = citizen.first_name_t;
-            last_name_t = citizen.last_name_t;
-            year_of_birth_t = citizen.year_of_birth_t;
-        }
+        Citizen(const Citizen& citizen) = default;
+
 
         virtual int getId() const;
+
         std::string getFirstName() const;
+
         std::string getLastName() const;
+
         int getBirthYear() const;
 
-        //Operators for Citizen
 
         bool operator<(const Citizen& citizen) const;
         bool operator>(const Citizen& citizen) const;
         bool operator==(const Citizen& citizen) const;
+        bool operator==(const int id) const;
         bool operator<=(const Citizen& citizen) const;
         bool operator>=(const Citizen& citizen) const;
         bool operator!=(const Citizen& citizen) const;
 
-        //Print functions
-
-        virtual ostream& printShort(ostream& os) const = 0 ;
-        virtual ostream& printLong(ostream& os) const = 0;
+        virtual std::ostream& printShort(std::ostream& os) const = 0;
+        virtual std::ostream& printLong(std::ostream& os) const = 0;
     
         virtual Citizen* clone() const = 0;
     };
     
 
+    /**
+     * @brief CitizenPlus is an extention to Citizen: Adds salary member to Citizen.
+     * 
+     */
     class CitizenPlus : public Citizen{
         protected:
         int salary_t;
+
         public:
-        CitizenPlus(const int id, const std::string first_name, const std::string last_name, const int year):Citizen(id, first_name, last_name, year), salary_t(0){
-        };
+        CitizenPlus(const int id, const std::string first_name, const std::string last_name, const int year);
         CitizenPlus(const CitizenPlus& citizen_plus) = default;
         ~CitizenPlus() = default;
+
         int getSalary() const;
+
         void setSalary(const double add_salary);
     };
 
