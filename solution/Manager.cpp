@@ -1,7 +1,8 @@
 #include "Manager.h"
-#include "Employee.h"
 #include "exceptions.h"
+#include <set>
 #include <string>
+#include <iostream>
 
 namespace mtm{
 
@@ -37,13 +38,13 @@ void Manager::removeEmployee(const int employee_id){
 }
 
 
-ostream& Manager::printShort(ostream& os) const{
+std::ostream& Manager::printShort(std::ostream& os) const{
     os << getFirstName() + std::string(" ") + getLastName() + std::string("\n") + std::string("Salary: ") 
         + std::to_string(getSalary()) << std::endl;
     return os;
 }
 
-ostream& Manager::printEmployees(ostream& os) const{
+std::ostream& Manager::printEmployees(std::ostream& os) const{
     if(!employees_t.empty()){
         os << std::string("Employees: ") << std::endl;
         for(const Employee* employee : employees_t){
@@ -53,7 +54,7 @@ ostream& Manager::printEmployees(ostream& os) const{
     return os;
 }
 
-ostream& Manager::printLong(ostream& os) const{
+std::ostream& Manager::printLong(std::ostream& os) const{
     os << getFirstName() + std::string(" ") + getLastName() + std::string("\n") +
         std::string("id - ") + std::to_string(getId()) + std::string(" birth_year - ") + std::to_string(getBirthYear()) 
         + std::string("\n") + std::string("Salary: ") + std::to_string(getSalary()) << std::endl;
@@ -66,16 +67,25 @@ Manager* Manager::clone() const{
 }
 
 bool Manager::isEmployeeHere(const int id) const{
-    return getEmployeeById(id) != nullptr;
+    return getEmployeeByIdOrNullptr(id) != nullptr;
 }
 
-Employee* Manager::getEmployeeById(const int id) const{
+Employee* Manager::getEmployeeByIdOrNullptr(const int id) const{
     for(Employee* const employee : employees_t){
         if(employee->getId() == id){
             return employee;
         }
     }
     return nullptr;
+}
+
+
+Employee* Manager::getEmployeeById(const int id) const{
+    Employee* employee = getEmployeeByIdOrNullptr(id);
+    if(employee == nullptr){
+        throw EmployeeIsNotHired();
+    }
+    return employee;
 }
 
 void Manager::fireAllEmployees(const double salary){

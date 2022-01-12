@@ -1,0 +1,11 @@
+Workplace name - Meta Groups:
+Manager Robert stark
+id - 1 birth_year - 1980
+Salary: 20000
+Employees: 
+John Williams
+Salary: 10000 Score: 0
+Alex Martinez
+Salary: 10000 Score: 0
+-----------
+Workplace name - Meta

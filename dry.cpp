@@ -5,6 +5,7 @@
 
 class BadInput : public std::exception{};
 
+//Check if input is invalid
 bool isNotInputValid(int vec_size, int start, int step, int stop){
     return start < 0 || stop < 0 || step <= 0 || start >= vec_size || stop > vec_size;
 }
@@ -24,8 +25,14 @@ std::vector<T> slice(std::vector<T> vec, int start, int step, int stop){
     return new_vec;
 }
 
+// By using shared_ptr all allocated memory is safely freed.
+// For this reason we coulden't use int*.
+// Also, we've added constructors as instructed.
 class A {
     public:
+    A() = default;
+    A(const A&) = default;
+    ~A() = default;
     std::vector<std::shared_ptr<int>> values;
     void add(int x) { values.push_back(std::shared_ptr<int>(new int(x))); }
 };
