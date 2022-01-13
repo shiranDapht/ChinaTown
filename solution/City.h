@@ -213,7 +213,7 @@ namespace mtm{
     template<class IsAccepted>
     void City::addFaculty(const int id,const Skill& skill, const int added_pointes, IsAccepted* isAccepted){
         if(getFacultyByIdOrNullptr(id) == nullptr){
-            faculties_t.push_back(Faculty<Condition>(id, isAccepted, skill, added_pointes));
+            faculties_t.push_back(Faculty<Condition>(id, skill, added_pointes, isAccepted));
             return;
         }
         throw FacultyAlreadyExists();

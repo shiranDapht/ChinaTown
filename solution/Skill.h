@@ -42,9 +42,12 @@ namespace mtm{
         bool operator<=(const Skill& rvalue) const;
         bool operator==(const Skill& rvalue) const;
         bool operator!=(const Skill& rvalue) const;
-        void operator++(int);
-        void operator+=(int points);
-        int operator+(int points) const;
+        Skill operator++(int);
+        Skill& operator+=(int points);
+        friend Skill operator+(const Skill& skill, int points);
+        friend Skill operator+(int points, const Skill& skill);
     };
+    Skill operator+(const Skill& skill, int points);
+    Skill operator+(int points, const Skill& skill);
 }
 #endif

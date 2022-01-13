@@ -26,7 +26,7 @@ namespace mtm{
     public:
 
         Employee(const int id, const std::string first_name, const std::string last_name, const int year);
-        ~Employee() = default;
+        virtual ~Employee() override = default;
         Employee(const Employee& employee) = default;
 
         /**

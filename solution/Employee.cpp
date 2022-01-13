@@ -44,7 +44,7 @@ bool Employee::hasSkill(const int skill_id) const{
 
 
 void Employee::setScore(const int add_score){
-    score_t = getScore() + add_score;
+    score_t = getScore() + add_score <= 0 ? 0 : getScore() + add_score;
 }
 
 std::ostream& Employee::printShort(std::ostream& os) const{

@@ -23,7 +23,7 @@ void Manager::addEmployee(Employee* const employee){
         employees_t.insert(employee);
     }
     else{
-        throw CitizenAlreadyExists();
+        throw EmployeeAlreadyHired();
     }
 }
 

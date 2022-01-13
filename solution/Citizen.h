@@ -14,9 +14,8 @@ namespace mtm{
         int year_of_birth_t;
 
     public:
-        Citizen() = default;
         Citizen(const int id, const std::string first_name, const std::string last_name, const int year);
-        ~Citizen() = default; 
+        virtual ~Citizen() = default; 
         Citizen(const Citizen& citizen) = default;
 
 
@@ -55,7 +54,7 @@ namespace mtm{
         public:
         CitizenPlus(const int id, const std::string first_name, const std::string last_name, const int year);
         CitizenPlus(const CitizenPlus& citizen_plus) = default;
-        ~CitizenPlus() = default;
+        virtual ~CitizenPlus() = default;
 
         int getSalary() const;
 

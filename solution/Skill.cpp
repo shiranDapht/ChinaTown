@@ -1,8 +1,9 @@
 #include "Skill.h"
 #include "exceptions.h"
 #include <string>
+#include <iostream>
 
-using namespace mtm;
+namespace mtm{
 
 Skill::Skill(int id, std::string name, int required_points) 
     : id_t(id), required_points_t(required_points), name_t(name){}
@@ -25,7 +26,7 @@ std::string Skill::getName() const{
 
 
 std::ostream& operator<<(std::ostream& os, const Skill& skill){
-    return os << skill.getName();
+    return os << skill.getName() << std::endl;
 }
 
 bool Skill::operator>(const Skill& rvalue) const{
@@ -52,20 +53,31 @@ bool Skill::operator!=(const Skill& rvalue) const{
     return id_t != rvalue.getId();
 }
 
-void Skill::operator++(int){
-    id_t++;
+Skill Skill::operator++(int){
+    Skill skill = Skill(*this);
+    ++required_points_t;
+    return skill;
 }
 
-void Skill::operator+=(int points){
+Skill& Skill::operator+=(int points){
     if(points < 0){
         throw mtm::NegativePoints();
     }
-    id_t+=points;
+    required_points_t += points;
+    return *this;
 }
 
-int Skill::operator+(int points) const{
+Skill operator+(const Skill& skill, int points){
     if(points < 0){
-        throw NegativePoints();
+        throw mtm::NegativePoints();
     }
-    return getId() + points;
+    return Skill(skill.getId(), skill.getName(), skill.getRequiredPoints()+points);
+}
+
+Skill operator+(int points, const Skill& skill){
+    if(points < 0){
+        throw mtm::NegativePoints();
+    }
+    return Skill(skill.getId(), skill.getName(), skill.getRequiredPoints()+points);
+}
 }

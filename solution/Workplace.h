@@ -91,7 +91,7 @@ namespace mtm{
          */
         void fireManager(int manager_id);
         
-        friend std::ostream& operator<<(std::ostream& os, Workplace& workplace);
+        friend std::ostream& operator<<(std::ostream& os, const Workplace& workplace);
 
         /**
          * @brief Get the Manager By Id object

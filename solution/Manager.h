@@ -34,7 +34,7 @@ namespace mtm
     public:
         Manager(int id, std::string first_name, std::string last_name, int year);
         Manager(const Manager &manager) = default;
-        ~Manager() = default;
+        virtual ~Manager() override = default;
 
         /**
          * @brief add Employee under Manager

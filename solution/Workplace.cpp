@@ -35,6 +35,7 @@ namespace mtm{
         if(manager->getIsHired()){
             throw CanNotHireManager();
         }
+        manager->setIsHired(true);
         manager->setSalary(managers_salary_t);
         managers_set_t.insert(manager);
     }
@@ -53,7 +54,7 @@ namespace mtm{
         managers_set_t.erase(manager);
     }
 
-    std::ostream& operator<<(std::ostream& os, Workplace& workplace){
+    std::ostream& operator<<(std::ostream& os, const Workplace& workplace){
         os << std::string("Workplace name - ") + workplace.getName();
         if(!workplace.managers_set_t.empty()){
             os << " Groups:\n";
