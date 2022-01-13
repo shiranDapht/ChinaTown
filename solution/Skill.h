@@ -2,15 +2,20 @@
 #define _SKILL_H
 
 #include <string>
+#include <iostream>
+
+using std::string;
+using std::ostream;
 namespace mtm{
     class Skill
     {
     private:
         int id_t;
+        string name_t;
         int required_points_t;
-        std::string name_t;
+        
     public:
-        Skill(int id, std::string name, int required_points);
+        Skill(int id, string name, int required_points);
         Skill(const Skill& skill);
         ~Skill() = default;
 
@@ -33,9 +38,9 @@ namespace mtm{
          * 
          * @return std::string 
          */
-        std::string getName() const;
+        string getName() const;
 
-        friend std::ostream& operator<<(std::ostream& os, const Skill& skill);
+        friend ostream& operator<<(ostream& os, const Skill& skill);
         bool operator>(const Skill& rvalue) const;
         bool operator<(const Skill& rvalue) const;
         bool operator>=(const Skill& rvalue) const;
@@ -47,7 +52,5 @@ namespace mtm{
         friend Skill operator+(const Skill& skill, int points);
         friend Skill operator+(int points, const Skill& skill);
     };
-    Skill operator+(const Skill& skill, int points);
-    Skill operator+(int points, const Skill& skill);
 }
 #endif

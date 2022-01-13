@@ -1,98 +1,106 @@
 #include "Manager.h"
 #include "exceptions.h"
+
 #include <set>
 #include <string>
 #include <iostream>
+#include <memory>
 
+using std::set;
+using std::ostream;
+using std::string;
+using std::to_string;
+using std::endl;
+using std::shared_ptr;
+using std::make_shared;
 namespace mtm{
 
-Manager::Manager(int id, std::string first_name, std::string last_name, int year):
-    CitizenPlus(id, first_name, last_name, year), employees_t(std::set<Employee*>()), is_hired_t(false) {}
+    Manager::Manager(int id, string first_name, string last_name, int year):
+        Citizen(id, first_name, last_name, year), salary_t(-1) ,employees_t(set<shared_ptr<Employee>, Comparator>()){}
 
-
-bool Manager::getIsHired() const{
-    return is_hired_t;
-}
-
-void Manager::setIsHired(const bool is_hired){
-    is_hired_t = is_hired;
-}
-
-void Manager::addEmployee(Employee* const employee){
-    if(employees_t.find(employee) == employees_t.end()){
-        employees_t.insert(employee);
-    }
-    else{
-        throw EmployeeAlreadyHired();
-    }
-}
-
-void Manager::removeEmployee(const int employee_id){
-    for(Employee* const employee : employees_t){
-        if(employee->getId() == employee_id){
-            employees_t.erase(employee);
-            return;
+    void Manager::addEmployee(Employee* const employee){
+        shared_ptr<Employee> employee_ptr = make_shared<Employee>(employee);
+        if(employees_t.find(employee_ptr) == employees_t.end()){
+            employees_t.insert(employee_ptr);
+        }
+        else{
+            throw EmployeeAlreadyHired();
         }
     }
-    throw EmployeeIsNotHired();
-}
 
-
-std::ostream& Manager::printShort(std::ostream& os) const{
-    os << getFirstName() + std::string(" ") + getLastName() + std::string("\n") + std::string("Salary: ") 
-        + std::to_string(getSalary()) << std::endl;
-    return os;
-}
-
-std::ostream& Manager::printEmployees(std::ostream& os) const{
-    if(!employees_t.empty()){
-        os << std::string("Employees: ") << std::endl;
-        for(const Employee* employee : employees_t){
-            employee->printShort(os);
+    void Manager::removeEmployee(const int employee_id){
+        for(shared_ptr<Employee> const employee : employees_t){
+            if(employee->getId() == employee_id){
+                employees_t.erase(employee);
+                return;
+            }
         }
-    }
-    return os;
-}
-
-std::ostream& Manager::printLong(std::ostream& os) const{
-    os << getFirstName() + std::string(" ") + getLastName() + std::string("\n") +
-        std::string("id - ") + std::to_string(getId()) + std::string(" birth_year - ") + std::to_string(getBirthYear()) 
-        + std::string("\n") + std::string("Salary: ") + std::to_string(getSalary()) << std::endl;
-    printEmployees(os);
-    return os;
-}
-
-Manager* Manager::clone() const{
-    return new Manager(*this);
-}
-
-bool Manager::isEmployeeHere(const int id) const{
-    return getEmployeeByIdOrNullptr(id) != nullptr;
-}
-
-Employee* Manager::getEmployeeByIdOrNullptr(const int id) const{
-    for(Employee* const employee : employees_t){
-        if(employee->getId() == id){
-            return employee;
-        }
-    }
-    return nullptr;
-}
-
-
-Employee* Manager::getEmployeeById(const int id) const{
-    Employee* employee = getEmployeeByIdOrNullptr(id);
-    if(employee == nullptr){
         throw EmployeeIsNotHired();
     }
-    return employee;
-}
 
-void Manager::fireAllEmployees(const double salary){
-    for(Employee* const employee : employees_t){
-        employee->setSalary(-salary);
+
+    ostream& Manager::printShort(ostream& os) const{
+        os << getFirstName() + string(" ") + getLastName() + string("\nSalary: ") + to_string(getSalary()) << endl;
+        return os;
     }
-    employees_t.clear();
-}
+
+    ostream& Manager::printEmployees(ostream& os) const{
+        if(!employees_t.empty()){
+            os << string("Employees: ") << endl;
+            for(shared_ptr<Employee> employee : employees_t){
+                employee->printShort(os);
+            }
+        }
+        return os;
+    }
+
+    ostream& Manager::printLong(ostream& os) const{
+        os << getFirstName() + string(" ") + getLastName() + string("\nid - ") + to_string(getId()) 
+        + string(" birth_year - ") + to_string(getBirthYear()) + string("\nSalary: ") 
+        + to_string(getSalary()) << endl;
+        printEmployees(os);
+        return os;
+    }
+
+    shared_ptr<Citizen> Manager::clone() const{
+        return shared_ptr<Manager>(new Manager(*this));
+    }
+
+    bool Manager::isEmployeeHere(const int id) const{
+        return getEmployeeByIdOrNullptr(id) != nullptr;
+    }
+
+    shared_ptr<Employee> Manager::getEmployeeByIdOrNullptr(const int id) const{
+        for(shared_ptr<Employee> const employee : employees_t){
+            if(employee->getId() == id){
+                return employee;
+            }
+        }
+        return nullptr;
+    }
+
+
+    shared_ptr<Employee> Manager::getEmployeeById(const int id) const{
+        shared_ptr<Employee> employee = getEmployeeByIdOrNullptr(id);
+        if(employee == nullptr){
+            throw EmployeeIsNotHired();
+        }
+        return employee;
+    }
+
+    void Manager::fireAllEmployees(const int salary){
+        for(shared_ptr<Employee> const employee : employees_t){
+            employee->setSalary(-salary);
+        }
+        employees_t.clear();
+    }
+
+    int Manager::getSalary() const {
+        return salary_t;
+    }
+
+    void Manager::setSalary(const int add_salary) {
+        salary_t = getSalary() + add_salary <= 0 ? 0 : getSalary() + add_salary;
+    }
 
 }
