@@ -63,7 +63,7 @@ namespace mtm{
 
     template<class Functor>
     Faculty<Functor>::Faculty(int id, Skill skill, int added_pointes, Functor* isAccepted): 
-        id_t(id), skill_t(skill), isAccepted_t(isAccepted), added_pointes_t(added_pointes){}
+        id_t(id), skill_t(skill), added_pointes_t(added_pointes), isAccepted_t(isAccepted){}
 
     template<class Functor>
     int Faculty<Functor>::getAddedPoints() const{

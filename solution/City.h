@@ -231,7 +231,7 @@ namespace mtm{
     void City::hireEmployeeAtWorkplace(const Condition cond, const int employee_id,
                         const int manager_id, const int workplace_id){
         getManagerById(manager_id);
-        getWorkplaceById(workplace_id)->hireEmployee(cond, getEmployeeById(employee_id), manager_id);
+        getWorkplaceById(workplace_id)->hireEmployee(cond, getEmployeeById(employee_id).get(), manager_id);
     }
 
 }

@@ -17,7 +17,7 @@ using std::make_shared;
 namespace mtm{
 
     Employee::Employee(const int id, const string first_name, const string last_name, const int year) :
-                Citizen(id, first_name, last_name, year), score_t(0), salary_t(0), skills_t(set<Skill>()) {}
+                Citizen(id, first_name, last_name, year), score_t(0), skills_t(set<Skill>()) {}
 
     int Employee::getScore() const{
         return score_t;
@@ -52,14 +52,6 @@ namespace mtm{
         return false;
     }
 
-    int Employee::getSalary() const{
-        return salary_t;
-    }
-
-    void Employee::setSalary(const int add_salary){
-        salary_t = getSalary() + add_salary <= 0 ? 0 : getSalary() + add_salary;
-    }
-
     void Employee::setScore(const int add_score){
         score_t = getScore() + add_score <= 0 ? 0 : getScore() + add_score;
     }
@@ -91,13 +83,8 @@ namespace mtm{
         return os;
     }
 
-<<<<<<< HEAD
     Employee* Employee::clone() const{
         return new Employee(*this);
-=======
-    shared_ptr<Citizen> Employee::clone() const{
-        return shared_ptr<Employee>(new Employee(*this));
->>>>>>> 50a9a1c6a05094a158b1e4f84cf9c3fd6bd6a6a1
     }
 
 }

@@ -17,6 +17,10 @@ namespace mtm{
         string first_name_t;
         string last_name_t;
         int year_of_birth_t;
+        /**
+         * @brief In accordance to Piaza instructions
+         * 
+         */
         int salary_t;
 
     public:
@@ -29,13 +33,18 @@ namespace mtm{
         string getFirstName() const;
         string getLastName() const;
         int getBirthYear() const;
-<<<<<<< HEAD
-        int getSalary() const;
-        void setSalary(const int add_salary);
-=======
+        /**
+         * @brief Get Salary
+         * 
+         * @return int 
+         */
         virtual int getSalary() const;
+        /**
+         * @brief Set Salary
+         * 
+         * @param add_salary 
+         */
         virtual void setSalary(const int add_salary);
->>>>>>> 50a9a1c6a05094a158b1e4f84cf9c3fd6bd6a6a1
 
 
         bool operator<(const Citizen& citizen) const;
@@ -49,7 +58,7 @@ namespace mtm{
         virtual ostream& printShort(ostream& os) const = 0;
         virtual ostream& printLong(ostream& os) const = 0;
     
-        virtual shared_ptr<Citizen> clone() const = 0;
+        virtual Citizen* clone() const = 0;
     };
 
     /**
@@ -61,12 +70,7 @@ namespace mtm{
             Comparator() = default;
             ~Comparator() = default;
             Comparator(const Comparator&) = default;
-            
-<<<<<<< HEAD
-            bool operator()(const Citizen& ptr1, const Citizen& ptr2);
-=======
-            bool operator()(const shared_ptr<Citizen> ptr1, const shared_ptr<Citizen> ptr2);
->>>>>>> 50a9a1c6a05094a158b1e4f84cf9c3fd6bd6a6a1
+            bool operator()(const Citizen* ptr1, const Citizen* ptr2);
     };
 
 

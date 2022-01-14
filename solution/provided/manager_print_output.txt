@@ -1,0 +1,20 @@
+Short Print
+Robert stark
+Salary: 0
+Long Print
+Robert stark
+id - 1 birth_year - 1980
+Salary: 0
+----------
+Short Print
+Robert stark
+Salary: 0
+Long Print
+Robert stark
+id - 1 birth_year - 1980
+Salary: 10000
+Employees: 
+John Williams
+Salary: 0 Score: 0
+Alex Martinez
+Salary: 0 Score: 0

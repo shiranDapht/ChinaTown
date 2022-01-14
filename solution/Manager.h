@@ -20,12 +20,7 @@ namespace mtm
     class Manager : public Citizen
     {
     private:
-<<<<<<< HEAD
         set<Employee*, Comparator> employees_t;
-=======
-        int salary_t;
-        set<shared_ptr<Employee>, Comparator> employees_t;
->>>>>>> 50a9a1c6a05094a158b1e4f84cf9c3fd6bd6a6a1
 
         /**
          * @brief print a list of employees working under this manager
@@ -34,16 +29,13 @@ namespace mtm
          * @return std::ostream& 
          */
         ostream& printEmployees(ostream &os) const;
-<<<<<<< HEAD
-=======
         /**
          * @brief Get the Employee By Id
          * 
          * @param id 
          * @return Employee pointer, nullptr if employee doesn't work under this manager 
          */
-        shared_ptr<Employee> getEmployeeByIdOrNullptr(const int id) const;
->>>>>>> 50a9a1c6a05094a158b1e4f84cf9c3fd6bd6a6a1
+        Employee* getEmployeeByIdOrNullptr(const int id) const;
 
 
     public:
@@ -79,7 +71,7 @@ namespace mtm
          */
         virtual ostream& printLong(ostream& os) const override;
 
-        virtual shared_ptr<Citizen> clone() const override;
+        virtual Manager* clone() const override;
         //Custom methods
         /**
          * @brief checks if Employee works under Manager
@@ -88,17 +80,6 @@ namespace mtm
          * @return boolean
          */
         bool isEmployeeHere(int id) const;
-<<<<<<< HEAD
-
-        /**
-         * @brief Get the Employee By Id
-         * 
-         * @param id 
-         * @return Employee pointer, nullptr if employee doesn't work under this manager 
-         */
-        Employee* getEmployeeByIdOrNullptr(const int id) const;
-        
-=======
         // /**
         //  * @brief Get the is_hired
         //  * 
@@ -113,14 +94,20 @@ namespace mtm
         //  */
         // void setIsHired(const bool is_hired);
 
->>>>>>> 50a9a1c6a05094a158b1e4f84cf9c3fd6bd6a6a1
         /**
          * @brief Get Employee By Id
          *
          * @param id
          * @return const Employee*, if employee doesn't exist return nullptr
          */
-        shared_ptr<Employee> getEmployeeById(const int id) const;
+        Employee* getEmployeeById(const int id) const;
+
+        /**
+         * @brief Use 
+         * 
+         * @param salary 
+         */
+        void setEmployeesSalary(const int salary);
 
         /**
          * @brief fire all employees of manager
@@ -128,13 +115,6 @@ namespace mtm
          * @param salary 
          */
         void fireAllEmployees(const int salary);
-<<<<<<< HEAD
-=======
-
-        virtual int getSalary() const override;
-
-        virtual void setSalary(const int add_salary) override;
->>>>>>> 50a9a1c6a05094a158b1e4f84cf9c3fd6bd6a6a1
     };
 
 }
