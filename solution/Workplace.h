@@ -3,19 +3,26 @@
 
 #include "Manager.h"
 #include "exceptions.h"
+
 #include <string>
 #include <set>
 #include <iostream>
+#include <memory>
+
+using std::set;
+using std::ostream;
+using std::string;
+using std::shared_ptr;
 namespace mtm{
 
     class Workplace
     {
     private:
         int id_t;
-        std::string name_t;
-        double workers_salary_t;
-        double managers_salary_t;
-        std::set<Manager*> managers_set_t;
+        string name_t;
+        int workers_salary_t;
+        int managers_salary_t;
+        set<Manager*, Comparator> managers_set_t;
 
         /**
          * @brief Get the Manager By Id
@@ -26,12 +33,12 @@ namespace mtm{
         Manager* getManagerByIdOrNullptr(const int id) const;
 
     public:
-        Workplace(int id, std::string name, double workers_salary, double managers_salary);
+        Workplace(int id, string name, int workers_salary, int managers_salary);
         Workplace(const Workplace& workplace) = default;
         ~Workplace() = default;
 
         /**
-         * @brief Chack if employee work here
+         * @brief Check if employee work here
          * 
          * @param id 
          * @return boolean
@@ -42,19 +49,19 @@ namespace mtm{
          * 
          * @return double 
          */
-        double getManagersSalary() const;
+        int getManagersSalary() const;
         /**
          * @brief Get the Workers Salary at this workplace
          * 
          * @return double 
          */
-        double getWorkersSalary() const;
+        int getWorkersSalary() const;
         /**
          * @brief Get the Name of this workplace
          * 
          * @return std::string 
          */
-        std::string getName() const;
+        string getName() const;
         /**
          * @brief Get the Id of this workplace
          * 
@@ -62,7 +69,7 @@ namespace mtm{
          */
         int getId() const;
         /**
-         * @brief Check if the employee can wokr at this workplace
+         * @brief Check if the employee can work at this workplace
          * 
          * @tparam IsAcceptedToWorkFunctor 
          * @param isAccepted 
@@ -91,7 +98,7 @@ namespace mtm{
          */
         void fireManager(int manager_id);
         
-        friend std::ostream& operator<<(std::ostream& os, const Workplace& workplace);
+        friend ostream& operator<<(ostream& os, const Workplace& workplace);
 
         /**
          * @brief Get the Manager By Id object

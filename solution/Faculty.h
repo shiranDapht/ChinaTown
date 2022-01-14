@@ -21,17 +21,16 @@ namespace mtm{
 
 
     template<class Functor>
-    class Faculty{
-        
+    class Faculty{   
     private:
         int id_t;
-        Functor* isAccepted_t;
         Skill skill_t;
         int added_pointes_t;
+        Functor* isAccepted_t;
 
     public:
         Faculty(int id, Skill skill, int added_pointes, Functor* isAccepted);
-        Faculty(const Faculty& fac);
+        Faculty(const Faculty& fac) = default;
         ~Faculty() = default;
 
         /**
@@ -64,11 +63,7 @@ namespace mtm{
 
     template<class Functor>
     Faculty<Functor>::Faculty(int id, Skill skill, int added_pointes, Functor* isAccepted): 
-        id_t(id), isAccepted_t(isAccepted), skill_t(skill), added_pointes_t(added_pointes){}
-
-    template<class Functor>
-    Faculty<Functor>::Faculty(const Faculty& faculty) : id_t(faculty.getId()), isAccepted_t(faculty.isAccepted_t), 
-        skill_t(faculty.getSkill()), added_pointes_t(faculty.getAddedPoints()){}
+        id_t(id), skill_t(skill), isAccepted_t(isAccepted), added_pointes_t(added_pointes){}
 
     template<class Functor>
     int Faculty<Functor>::getAddedPoints() const{

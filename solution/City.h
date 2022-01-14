@@ -1,10 +1,6 @@
 #ifndef _CITY_H_
 #define _CITY_H_
 
-#include <string>
-#include <iostream>
-#include <vector>
-
 #include "Skill.h"
 #include "Citizen.h"
 #include "Employee.h"
@@ -13,31 +9,41 @@
 #include "Workplace.h"
 #include "exceptions.h"
 
+#include <string>
+#include <iostream>
+#include <vector>
+#include <memory>
+
+using std::string;
+using std::vector;
+using std::ostream;
+
+
 namespace mtm{
 
     class City{
     private:
-        std::string city_name_t;
-        std::vector<Employee> employees_t;
-        std::vector<Manager> managers_t;
-        std::vector<Faculty<Condition>> faculties_t;
-        std::vector<Workplace> workplaces_t;
+        string city_name_t;
+        vector<shared_ptr<Employee>> employees_t;
+        vector<shared_ptr<Manager>> managers_t;
+        vector<shared_ptr<Faculty<Condition>>> faculties_t;
+        vector<shared_ptr<Workplace>> workplaces_t;
 
         /**
          * @brief Get Employee By Id
          * 
          * @param id 
-         * @return Employee poiner, if not exists nullptr
+         * @return Employee pointer, if not exists nullptr
          */
-        Employee* getEmployeeByIdOrNullptr(const int id);
+        shared_ptr<Employee> getEmployeeByIdOrNullptr(const int id);
 
         /**
          * @brief Get Manager By Id
          * 
          * @param id 
-         * @return Manager poiner, if not exists nullptr
+         * @return Manager pointer, if not exists nullptr
          */
-        Manager* getManagerByIdOrNullptr(const int id);
+        shared_ptr<Manager> getManagerByIdOrNullptr(const int id);
 
         /**
          * @brief Get Faculty By Id
@@ -45,15 +51,15 @@ namespace mtm{
          * @param id 
          * @return Faculty<Condition>*, if not exists nullptr
          */
-        Faculty<Condition>* getFacultyByIdOrNullptr(const int id);
+        shared_ptr<Faculty<Condition>> getFacultyByIdOrNullptr(const int id);
 
         /**
          * @brief Get Workplace By Id
          * 
          * @param id 
-         * @return Workplace poiner, if not exists nullptr
+         * @return Workplace pointer, if not exists nullptr
          */
-        Workplace* getWorkplaceByIdOrNullptr(const int id);
+        shared_ptr<Workplace> getWorkplaceByIdOrNullptr(const int id);
 
         /**
          * @brief Get Employee By Id
@@ -61,7 +67,7 @@ namespace mtm{
          * @param id 
          * @return const Employee*, if does not exist throw exception
          */
-        Employee* getEmployeeById(const int id);
+        shared_ptr<Employee> getEmployeeById(const int id);
 
         /**
          * @brief Get Manager By Id
@@ -69,7 +75,7 @@ namespace mtm{
          * @param id 
          * @return const Manager*, if does not exist throw exception
          */
-        Manager* getManagerById(const int id);
+        shared_ptr<Manager> getManagerById(const int id);
 
         /**
          * @brief Get Workplace By Id
@@ -77,7 +83,7 @@ namespace mtm{
          * @param id 
          * @return const Workplace*, if does not exist throw exception
          */
-        Workplace* getWorkplaceById(const int id);
+        shared_ptr<Workplace> getWorkplaceById(const int id);
 
         /**
          * @brief Get Faculty By Id
@@ -85,10 +91,10 @@ namespace mtm{
          * @param id 
          * @return Faculty<Condition>*, if does not exist throw exception
          */
-        Faculty<Condition>* getFacultyById(const int id);
+        shared_ptr<Faculty<Condition>> getFacultyById(const int id);
 
     public:
-        City(std::string city_name);
+        City(string city_name);
         City(const City& city) = delete;
         ~City() = default;
 
@@ -100,7 +106,7 @@ namespace mtm{
          * @param last_name 
          * @param year 
          */
-        void addEmployee(const int id, const std::string first_name, const std::string last_name, const int year);
+        void addEmployee(const int id, const string first_name, const string last_name, const int year);
 
         /**
          * @brief Create Manager and add to city
@@ -110,7 +116,7 @@ namespace mtm{
          * @param last_name 
          * @param year 
          */
-        void addManager(const int id, const std::string first_name, const std::string last_name,const int year);
+        void addManager(const int id, const string first_name, const string last_name,const int year);
 
         /**
          * @brief Create Faculty and add to city
@@ -132,7 +138,7 @@ namespace mtm{
          * @param workers_salary 
          * @param managers_salary 
          */
-        void createWorkplace(int id, std::string name, double workers_salary, double managers_salary);
+        void createWorkplace(int id, string name, int workers_salary, int managers_salary);
 
         /**
          * @brief Teaches an Employee a skill of the Faculty
@@ -188,7 +194,7 @@ namespace mtm{
          * @param salary_bar 
          * @return int 
          */
-        int getAllAboveSalary(std::ostream& os, const int salary_bar) const;
+        int getAllAboveSalary(ostream& os, const int salary_bar) const;
 
         /**
          * @brief Checks if two employees work at the same Workplace
@@ -205,15 +211,16 @@ namespace mtm{
          * @param os 
          * @param id 
          */
-        void printAllEmployeesWithSkill(std::ostream& os, const int id) const;
+        void printAllEmployeesWithSkill(ostream& os, const int id) const;
 
     };
 
 
     template<class IsAccepted>
-    void City::addFaculty(const int id,const Skill& skill, const int added_pointes, IsAccepted* isAccepted){
+    void City::addFaculty(const int id, const Skill& skill, const int added_pointes, IsAccepted* isAccepted){
         if(getFacultyByIdOrNullptr(id) == nullptr){
-            faculties_t.push_back(Faculty<Condition>(id, skill, added_pointes, isAccepted));
+
+            faculties_t.push_back(shared_ptr<Faculty<Condition>>(new Faculty<Condition>(id, skill, added_pointes, isAccepted)));
             return;
         }
         throw FacultyAlreadyExists();
@@ -226,7 +233,6 @@ namespace mtm{
         getManagerById(manager_id);
         getWorkplaceById(workplace_id)->hireEmployee(cond, getEmployeeById(employee_id), manager_id);
     }
-
 
 }
 
