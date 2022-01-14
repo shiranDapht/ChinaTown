@@ -19,6 +19,10 @@ namespace mtm{
     {
     private:
         int score_t;
+<<<<<<< HEAD
+=======
+        int salary_t;
+>>>>>>> 50a9a1c6a05094a158b1e4f84cf9c3fd6bd6a6a1
         set<Skill> skills_t;
 
         /**
@@ -82,7 +86,11 @@ namespace mtm{
          */
         virtual ostream& printLong(ostream& os) const override;
     
-        virtual Employee* clone() const override;
+        virtual shared_ptr<Citizen> clone() const override;
+
+        virtual int getSalary() const override;
+
+        virtual void setSalary(const int add_salary) override;
 
     };
 }

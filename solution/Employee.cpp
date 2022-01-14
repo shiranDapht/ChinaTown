@@ -91,8 +91,13 @@ namespace mtm{
         return os;
     }
 
+<<<<<<< HEAD
     Employee* Employee::clone() const{
         return new Employee(*this);
+=======
+    shared_ptr<Citizen> Employee::clone() const{
+        return shared_ptr<Employee>(new Employee(*this));
+>>>>>>> 50a9a1c6a05094a158b1e4f84cf9c3fd6bd6a6a1
     }
 
 }

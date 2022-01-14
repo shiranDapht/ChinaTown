@@ -22,7 +22,11 @@ namespace mtm{
         string name_t;
         int workers_salary_t;
         int managers_salary_t;
+<<<<<<< HEAD
         set<Manager*, Comparator> managers_set_t;
+=======
+        set<shared_ptr<Manager>, Comparator> managers_set_t;
+>>>>>>> 50a9a1c6a05094a158b1e4f84cf9c3fd6bd6a6a1
 
         /**
          * @brief Get the Manager By Id
@@ -30,7 +34,7 @@ namespace mtm{
          * @param id 
          * @return Manager pointer 
          */
-        Manager* getManagerByIdOrNullptr(const int id) const;
+        shared_ptr<Manager> getManagerByIdOrNullptr(const int id) const;
 
     public:
         Workplace(int id, string name, int workers_salary, int managers_salary);
@@ -106,7 +110,7 @@ namespace mtm{
          * @param id 
          * @return Manager*, If manager does not exist throw ManagerIsNotHired
          */
-        Manager* getManagerById(const int id) const;
+        shared_ptr<Manager> getManagerById(const int id) const;
     };
 
     template<class IsAcceptedToWorkFunctor>
